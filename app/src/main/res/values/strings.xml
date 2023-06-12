@@ -2,4 +2,11 @@
     <string name="app_name">MovieScope</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="most_pop_movies">Most Pop Movies</string>
+    <string name="top_rated_250">Top Rated 250</string>
+    <string name="most_pop_series">Most Pop Series</string>
+    <string name="top_boxoffice">Top Boxoffice</string>
+    <string name="search_button">Search Button</string>
+    <string name="home">HOME</string>
+    <string name="fav">FAV</string>
 </resources>
