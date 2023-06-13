@@ -10,19 +10,26 @@
     android:paddingEnd="20dp"
     tools:context=".ui.home_fragment.HomeFragment">
 
-    <!-- Set of Profile ImageView. -->
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/profileShapeableImageView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/profileCardView"
         android:layout_marginTop="20dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_image_profil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
         app:strokeColor="@color/white"
-        app:strokeWidth="2dp" />
+        app:strokeWidth="2dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="100dp">
+
+        <!-- Set of Profile ImageView. -->
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_image_profil"/>
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- Set of Search IconButton. -->
     <ImageButton
@@ -43,7 +50,7 @@
         android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profileShapeableImageView">
+        app:layout_constraintTop_toBottomOf="@id/profileCardView">
 
         <!-- ConstraintLayout was added for items to be positioned within NestedScrollView. -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,9 +72,13 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mostPopMoviesRecyclerView"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_marginTop="15dp"
-                android:nestedScrollingEnabled="false"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/home_background"
+                android:backgroundTint="@color/home_background"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mostPopMoviesTextView" />
 
@@ -76,7 +87,7 @@
                 android:id="@+id/topRatedMoviesTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/top_rated_250"
                 android:textColor="@color/white"
                 android:textSize="22sp"
@@ -87,9 +98,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/topRatedMoviesRecyclerView"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_marginTop="15dp"
-                android:nestedScrollingEnabled="false"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/topRatedMoviesTextView" />
 
@@ -98,7 +111,7 @@
                 android:id="@+id/mostPopSeriesTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/most_pop_series"
                 android:textColor="@color/white"
                 android:textSize="22sp"
@@ -109,9 +122,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mostPopSeriesRecyclerView"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_marginTop="15dp"
-                android:nestedScrollingEnabled="false"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mostPopSeriesTextView" />
 
@@ -120,7 +135,7 @@
                 android:id="@+id/topBoxofficeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/top_boxoffice"
                 android:textColor="@color/white"
                 android:textSize="22sp"
@@ -131,9 +146,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/topBoxofficeRecyclerView"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_marginTop="15dp"
-                android:nestedScrollingEnabled="false"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/topBoxofficeTextView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
