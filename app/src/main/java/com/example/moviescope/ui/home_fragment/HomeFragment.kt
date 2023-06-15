@@ -5,27 +5,33 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.moviescope.R
+import androidx.fragment.app.viewModels
+import com.example.moviescope.data.model.Movie
 import com.example.moviescope.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
     private lateinit var binding : FragmentHomeBinding
+
+    private val viewModel : HomeViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater)
 
+        viewModel.fetchData()
 
-        initRecylerView()
+        viewModel.movie.observe(viewLifecycleOwner){
+            initRecylerView(it.results)
+        }
 
 
         return binding.root
     }
 
-    private fun initRecylerView() {
-        val imageMovieModels = getListImageMovie()
-        val adapter = ImageMovieAdapter(imageMovieModels)
+    private fun initRecylerView(movies: List<Movie>) {
+
+        val adapter = ImageMovieAdapter(movies)
         binding.apply {
             mostPopMoviesRecyclerView.adapter = adapter
             topRatedMoviesRecyclerView.adapter = adapter
@@ -34,18 +40,5 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getListImageMovie(): List<ImageMovieModel> {
-        return mutableListOf(
-            ImageMovieModel(R.drawable.deneme_poster),
-            ImageMovieModel(R.drawable.deneme_poster2),
-            ImageMovieModel(R.drawable.deneme_poster3),
-            ImageMovieModel(R.drawable.deneme_poster),
-            ImageMovieModel(R.drawable.deneme_poster2),
-            ImageMovieModel(R.drawable.deneme_poster3),
-            ImageMovieModel(R.drawable.deneme_poster),
-            ImageMovieModel(R.drawable.deneme_poster2),
-            ImageMovieModel(R.drawable.deneme_poster3),
-        )
-    }
 
 }

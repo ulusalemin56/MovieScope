@@ -4,9 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
+import com.example.moviescope.data.model.Movie
 import com.example.moviescope.databinding.ItemImageBinding
+import com.example.moviescope.util.Constants
 
-class ImageMovieAdapter(private val imageModels : List<ImageMovieModel>) : Adapter<ImageMovieAdapter.ImageMovieViewHolder>() {
+class ImageMovieAdapter(private val movies : List<Movie>) : Adapter<ImageMovieAdapter.ImageMovieViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageMovieAdapter.ImageMovieViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
 
@@ -16,18 +19,17 @@ class ImageMovieAdapter(private val imageModels : List<ImageMovieModel>) : Adapt
     }
 
     override fun onBindViewHolder(holder: ImageMovieAdapter.ImageMovieViewHolder, position: Int) {
-        holder.bind(imageModels[position])
+        holder.bind(movies[position])
     }
 
     override fun getItemCount(): Int {
-        return imageModels.size
+        return movies.size
     }
 
     inner class ImageMovieViewHolder(private val binding : ItemImageBinding) : ViewHolder(binding.root) {
 
-        fun bind(imageMovie : ImageMovieModel) {
-
-            binding.imageView.setImageResource(imageMovie.image)
+        fun bind(movie : Movie) {
+            Glide.with(binding.root).load(Constants.BASE_URL_IMAGE.plus(movie.posterPath)).into(binding.imageView)
         }
 
     }
