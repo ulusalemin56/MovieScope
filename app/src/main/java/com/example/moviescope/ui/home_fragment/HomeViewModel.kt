@@ -5,28 +5,29 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviescope.data.model.MoviesResponse
 import com.example.moviescope.data.network.MovieScopeService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-class HomeViewModel : ViewModel() {
+import javax.inject.Inject
+
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val movieScopeService: MovieScopeService) : ViewModel() {
 
     private val _movieData = MutableLiveData<MoviesResponse>()
-    val movie : LiveData<MoviesResponse> = _movieData
+    val movie: LiveData<MoviesResponse> = _movieData
 
-    fun fetchData() {
-        val moviewScopeService = MovieScopeService.getMovieScopeService()
-        moviewScopeService.getTopRatedMovies().enqueue(object : Callback<MoviesResponse>{
+    fun getTopRatedMovies() {
+        movieScopeService.getTopRatedMovies().enqueue(object : Callback<MoviesResponse> {
             override fun onResponse(
                 call: Call<MoviesResponse>,
                 response: Response<MoviesResponse>
             ) {
-
                 if (response.isSuccessful) {
-                   response.body()?.let {
+                    response.body()?.let {
                         _movieData.value = it
                     }
                 }
-
             }
 
             override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {

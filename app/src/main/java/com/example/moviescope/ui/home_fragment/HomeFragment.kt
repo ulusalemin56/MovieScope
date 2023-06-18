@@ -8,20 +8,23 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.moviescope.data.model.Movie
 import com.example.moviescope.databinding.FragmentHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
-    private lateinit var binding : FragmentHomeBinding
+    private lateinit var binding: FragmentHomeBinding
 
-    private val viewModel : HomeViewModel by viewModels()
+
+    private val viewModel: HomeViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater)
 
-        viewModel.fetchData()
+        viewModel.getTopRatedMovies()
 
-        viewModel.movie.observe(viewLifecycleOwner){
+        viewModel.movie.observe(viewLifecycleOwner) {
             initRecylerView(it.results)
         }
 
