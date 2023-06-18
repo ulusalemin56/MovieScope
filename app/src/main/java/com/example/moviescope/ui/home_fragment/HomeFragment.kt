@@ -22,26 +22,33 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater)
 
-        viewModel.getTopRatedMovies()
+        with(viewModel) {
+           topRatedMovies.observe(viewLifecycleOwner) {
+                initTopRatedMoviesRV(it)
+            }
 
-        viewModel.movie.observe(viewLifecycleOwner) {
-            initRecylerView(it.results)
+            nowPlayingMovies.observe(viewLifecycleOwner) {
+                initNowPlayingMoviesRV(it)
+            }
         }
-
 
         return binding.root
     }
 
-    private fun initRecylerView(movies: List<Movie>) {
+    private fun initTopRatedMoviesRV(movies: List<Movie>) {
 
         val adapter = ImageMovieAdapter(movies)
         binding.apply {
-            mostPopMoviesRecyclerView.adapter = adapter
-            topRatedMoviesRecyclerView.adapter = adapter
+            topRatedMovies.adapter = adapter
             mostPopSeriesRecyclerView.adapter = adapter
             topBoxofficeRecyclerView.adapter = adapter
         }
     }
 
-
+    private fun initNowPlayingMoviesRV(movies: List<Movie>) {
+        val adapter = ImageMovieAdapter(movies)
+        with(binding) {
+            nowPlayingMovies.adapter = adapter
+        }
+    }
 }

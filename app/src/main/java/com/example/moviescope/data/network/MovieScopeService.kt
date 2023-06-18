@@ -9,4 +9,7 @@ interface MovieScopeService {
     @GET(Constants.EndPoints.TOP_RATED_MOVIES)
     fun getTopRatedMovies() : Call<MoviesResponse>
 
+    @GET(Constants.EndPoints.NOW_PLAYING_MOVIES)
+    fun getNowPlayingMovies() : Call<MoviesResponse>
+
 }

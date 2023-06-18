@@ -70,7 +70,7 @@
 
             <!-- Set of Most Pop Movies RecyclerVİew -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mostPopMoviesRecyclerView"
+                android:id="@+id/topRatedMovies"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -92,11 +92,11 @@
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mostPopMoviesRecyclerView" />
+                app:layout_constraintTop_toBottomOf="@id/topRatedMovies" />
 
             <!-- Set of Top Rated 250 RecyclerVİew -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/topRatedMoviesRecyclerView"
+                android:id="@+id/nowPlayingMovies"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -116,7 +116,7 @@
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/topRatedMoviesRecyclerView" />
+                app:layout_constraintTop_toBottomOf="@id/nowPlayingMovies" />
 
             <!-- Set of Most Pop Series RecyclerVİew -->
             <androidx.recyclerview.widget.RecyclerView

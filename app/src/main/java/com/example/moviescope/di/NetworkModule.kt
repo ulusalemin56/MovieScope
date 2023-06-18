@@ -1,6 +1,7 @@
 package com.example.moviescope.di
 
 
+import com.example.moviescope.data.network.MovieScopeService
 import com.example.moviescope.util.Constants
 import com.example.moviescope.util.interceptor.ApiAuthInterceptor
 import dagger.Module
@@ -62,6 +63,11 @@ object NetworkModule {
             .addConverterFactory(gsonConverterFactory)
             .client(okHttpClient)
             .build()
+    }
+
+    @Provides
+    fun provideMovieScopeService(retrofit: Retrofit): MovieScopeService {
+        return retrofit.create(MovieScopeService::class.java)
     }
 
 }
