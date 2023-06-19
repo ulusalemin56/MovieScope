@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
     private fun initNowPlayingMoviesRV(movies: List<Movie>) {
         val adapter = MovieDataAdapter(movies)
         with(binding) {
-            nowPlayingMovies.adapter = adapter
+            nowPlayingMoviesRecyclerView.adapter = adapter
         }
     }
 

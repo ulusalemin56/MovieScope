@@ -57,9 +57,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!-- Set of Most Pop Movies title. -->
+            <!-- Set of Top Rated Movies title. -->
             <TextView
-                android:id="@+id/mostPopMoviesTextView"
+                android:id="@+id/topRatedMoviesTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/most_pop_movies"
@@ -68,7 +68,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Set of Most Pop Movies RecyclerVİew -->
+            <!-- Set of Top Rated Movies RecyclerVİew -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/topRatedMovies"
                 android:layout_width="wrap_content"
@@ -80,11 +80,11 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_image"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mostPopMoviesTextView" />
+                app:layout_constraintTop_toBottomOf="@id/topRatedMoviesTextView" />
 
-            <!-- Set of Top Rated 250 title. -->
+            <!-- Set of Now Playing Movies title. -->
             <TextView
-                android:id="@+id/topRatedMoviesTextView"
+                android:id="@+id/nowPlayingMoviesTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -96,7 +96,7 @@
 
             <!-- Set of Top Rated 250 RecyclerVİew -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/nowPlayingMovies"
+                android:id="@+id/nowPlayingMoviesRecyclerView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -104,11 +104,11 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_image"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/topRatedMoviesTextView" />
+                app:layout_constraintTop_toBottomOf="@id/nowPlayingMoviesTextView" />
 
-            <!-- Set of Most Pop Series title. -->
+            <!-- Set of Popular TV Series title. -->
             <TextView
-                android:id="@+id/mostPopSeriesTextView"
+                android:id="@+id/popularTvSeriesTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -116,9 +116,9 @@
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nowPlayingMovies" />
+                app:layout_constraintTop_toBottomOf="@id/nowPlayingMoviesRecyclerView" />
 
-            <!-- Set of Most Pop Series RecyclerVİew -->
+            <!-- Set of Popular TV Series RecyclerVİew -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popularTvSeriesRecyclerView"
                 android:layout_width="wrap_content"
@@ -128,11 +128,11 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_image"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mostPopSeriesTextView" />
+                app:layout_constraintTop_toBottomOf="@id/popularTvSeriesTextView" />
 
-            <!-- Set of Top Boxoffice title. -->
+            <!-- Set of Top Rated TV Series title. -->
             <TextView
-                android:id="@+id/topBoxofficeTextView"
+                android:id="@+id/topRatedTvSeriesTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -142,7 +142,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/popularTvSeriesRecyclerView" />
 
-            <!-- Set of Top Boxoffice RecyclerVİew -->
+            <!-- Set of Top Rated TV Series RecyclerVİew -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/topRatedTvSeriesRecyclerView"
                 android:layout_width="wrap_content"
@@ -152,7 +152,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_image"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/topBoxofficeTextView" />
+                app:layout_constraintTop_toBottomOf="@id/topRatedTvSeriesTextView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
