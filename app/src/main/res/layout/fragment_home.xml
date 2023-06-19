@@ -120,7 +120,7 @@
 
             <!-- Set of Most Pop Series RecyclerVİew -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mostPopSeriesRecyclerView"
+                android:id="@+id/popularTvSeriesRecyclerView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -140,11 +140,11 @@
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mostPopSeriesRecyclerView" />
+                app:layout_constraintTop_toBottomOf="@id/popularTvSeriesRecyclerView" />
 
             <!-- Set of Top Boxoffice RecyclerVİew -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/topBoxofficeRecyclerView"
+                android:id="@+id/topRatedTvSeriesRecyclerView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"

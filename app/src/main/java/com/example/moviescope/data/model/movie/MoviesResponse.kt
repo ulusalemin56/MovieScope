@@ -1,4 +1,4 @@
-package com.example.moviescope.data.model
+package com.example.moviescope.data.model.movie
 
 
 import com.google.gson.annotations.SerializedName
