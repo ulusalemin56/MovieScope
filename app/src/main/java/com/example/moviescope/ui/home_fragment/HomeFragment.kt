@@ -6,16 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.moviescope.data.model.movie.Movie
-import com.example.moviescope.data.model.series.Series
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.moviescope.databinding.FragmentHomeBinding
+import com.example.moviescope.domain.model.MovieUI
+import com.example.moviescope.domain.model.SeriesUI
+import com.example.moviescope.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-
-
     private val viewModel: HomeViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,57 +27,100 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater)
 
-        initObserve()
+        initCollect()
 
         return binding.root
     }
 
-    private fun initObserve() {
-        with(viewModel) {
-            topRatedMovies.observe(viewLifecycleOwner) {
-                initTopRatedMoviesRV(it)
+    private fun initCollect() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                with(viewModel) {
+
+                    launch {
+                        topRatedMovies.collectLatest {
+                            when (it) {
+                                is Resource.Loading -> {}
+                                is Resource.Success -> {
+                                    initTopRatedMoviesRV(it.data)
+                                }
+
+                                is Resource.Error -> {}
+                            }
+                        }
+                    }
+
+                    launch {
+                        nowPlayingMovies.collectLatest {
+                            when (it) {
+                                is Resource.Loading -> {}
+                                is Resource.Success -> {
+                                    initNowPlayingMoviesRV(it.data)
+                                }
+
+                                is Resource.Error -> {}
+                            }
+                        }
+                    }
+
+
+                    launch {
+                        popularTvSeries.collectLatest {
+                            when (it) {
+                                is Resource.Loading -> {}
+                                is Resource.Success -> {
+                                    initPopularTvSeriesRV(it.data)
+                                }
+
+                                is Resource.Error -> {}
+                            }
+                        }
+
+                    }
+
+                    launch {
+                        topRatedTvSeries.collect {
+                            when (it) {
+                                is Resource.Loading -> {}
+                                is Resource.Success -> {
+                                    initTopRatedTvSeriesRV(it.data)
+                                }
+
+                                is Resource.Error -> {}
+                            }
+                        }
+                    }
+
+                }
+
             }
-
-            nowPlayingMovies.observe(viewLifecycleOwner) {
-                initNowPlayingMoviesRV(it)
-            }
-
-            popularTvSeries.observe(viewLifecycleOwner) {
-                initPopularTvSeries(it)
-            }
-
-            topRatedTvSeries.observe(viewLifecycleOwner) {
-                initTopRatedTvSeries(it)
-            }
         }
+
     }
 
-    private fun initTopRatedMoviesRV(movies: List<Movie>) {
-
-        val adapter = MovieDataAdapter(movies)
-        binding.apply {
-            topRatedMovies.adapter = adapter
-        }
+    private fun initTopRatedMoviesRV(movies: List<MovieUI>) {
+        binding.topRatedMovies.adapter = getMovieAdapter(movies)
     }
 
-    private fun initNowPlayingMoviesRV(movies: List<Movie>) {
-        val adapter = MovieDataAdapter(movies)
-        with(binding) {
-            nowPlayingMoviesRecyclerView.adapter = adapter
-        }
+    private fun initNowPlayingMoviesRV(movies: List<MovieUI>) {
+        binding.nowPlayingMoviesRecyclerView.adapter = getMovieAdapter(movies)
     }
 
-    private fun initPopularTvSeries(series: List<Series>) {
-        val adapter = SeriesDataAdapter(series)
-        with(binding) {
-            popularTvSeriesRecyclerView.adapter = adapter
-        }
+    private fun getMovieAdapter(movies: List<MovieUI>): MovieDataAdapter {
+        return MovieDataAdapter(movies)
     }
 
-    private fun initTopRatedTvSeries(series: List<Series>) {
-        val adapter = SeriesDataAdapter(series)
-        with(binding) {
-            topRatedTvSeriesRecyclerView.adapter = adapter
-        }
+    private fun initPopularTvSeriesRV(series: List<SeriesUI>) {
+        binding.popularTvSeriesRecyclerView.adapter = getSeriesAdapter(series)
     }
+
+    private fun initTopRatedTvSeriesRV(series: List<SeriesUI>) {
+        binding.topRatedTvSeriesRecyclerView.adapter = getSeriesAdapter(series)
+    }
+
+    private fun getSeriesAdapter(series: List<SeriesUI>): SeriesDataAdapter {
+        return SeriesDataAdapter(series)
+    }
+
 }

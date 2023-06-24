@@ -1,59 +1,53 @@
 package com.example.moviescope.ui.home_fragment
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.ViewModel
-import com.example.moviescope.data.model.movie.Movie
-import com.example.moviescope.data.model.series.Series
+import androidx.lifecycle.viewModelScope
 import com.example.moviescope.data.repo.MovieScopeRepository
+import com.example.moviescope.domain.model.MovieUI
+import com.example.moviescope.domain.model.SeriesUI
+import com.example.moviescope.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val movieScopeRepository: MovieScopeRepository
+    movieScopeRepository: MovieScopeRepository
 ) : ViewModel() {
 
-    private val _topRatedMovies = MutableLiveData<List<Movie>>()
-    val topRatedMovies: LiveData<List<Movie>> = _topRatedMovies
+    // Type casting from Flow type to StateFlow type.
+    val topRatedMovies: StateFlow<Resource<List<MovieUI>>> =
+        movieScopeRepository.getTopRatedMovies().stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = Resource.Loading
+        )
 
-    private val _nowPlayingMovies = MutableLiveData<List<Movie>>()
-    val nowPlayingMovies: LiveData<List<Movie>> = _nowPlayingMovies
+    // Type casting from Flow type to StateFlow type.
+    val nowPlayingMovies: StateFlow<Resource<List<MovieUI>>> =
+        movieScopeRepository.getNowPlayingMovies().stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = Resource.Loading
+        )
 
-    private val _popularTvSeries = MutableLiveData<List<Series>>()
-    val popularTvSeries: LiveData<List<Series>> = _popularTvSeries
+    // Type casting from Flow type to StateFlow type.
+    val popularTvSeries: StateFlow<Resource<List<SeriesUI>>> =
+        movieScopeRepository.getpopularTvSeries().stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = Resource.Loading
+        )
 
-    private val _topRatedTvSeries = MutableLiveData<List<Series>>()
-    val topRatedTvSeries: LiveData<List<Series>> = _topRatedTvSeries
+    // Type casting from Flow type to StateFlow type.
+    val topRatedTvSeries: StateFlow<Resource<List<SeriesUI>>> =
+        movieScopeRepository.getTopRatedTvSeries().stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = Resource.Loading
+        )
 
-    init {
-        getTopRatedMovies()
-        getNowPlayingMovies()
-        getPopularTvSeries()
-        getTopRatedTvSeries()
-    }
-
-    private fun getTopRatedMovies() {
-        movieScopeRepository.getTopRatedMovies {
-            _topRatedMovies.value = it
-        }
-    }
-
-    private fun getNowPlayingMovies() {
-        movieScopeRepository.getNowPlayingMovies {
-            _nowPlayingMovies.value = it
-        }
-    }
-
-    private fun getPopularTvSeries() {
-        movieScopeRepository.getpopularTvSeries {
-            _popularTvSeries.value = it
-        }
-    }
-
-    private fun getTopRatedTvSeries() {
-        movieScopeRepository.getTopRatedTvSeries {
-            _topRatedTvSeries.value = it
-        }
-    }
 }

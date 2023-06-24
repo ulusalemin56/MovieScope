@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Series(
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @SerializedName("first_air_date")
     val firstAirDate: String,
     @SerializedName("genre_ids")
@@ -21,11 +21,11 @@ data class Series(
     @SerializedName("original_name")
     val originalName: String,
     @SerializedName("overview")
-    val overview: String,
+    val overview: String?,
     @SerializedName("popularity")
     val popularity: Double,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("vote_count")

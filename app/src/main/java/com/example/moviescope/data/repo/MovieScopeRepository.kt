@@ -1,14 +1,14 @@
 package com.example.moviescope.data.repo
 
-import com.example.moviescope.data.model.movie.Movie
-import com.example.moviescope.data.model.series.Series
+import com.example.moviescope.domain.model.MovieUI
+import com.example.moviescope.domain.model.SeriesUI
+import com.example.moviescope.util.Resource
+import kotlinx.coroutines.flow.Flow
+
 
 interface MovieScopeRepository {
-    fun getTopRatedMovies(callback : (List<Movie>) -> Unit)
-
-    fun getNowPlayingMovies(callback : (List<Movie>) -> Unit)
-
-    fun getpopularTvSeries(callback : (List<Series>) -> Unit)
-
-    fun getTopRatedTvSeries(callback : (List<Series>) -> Unit)
+    fun getTopRatedMovies() : Flow<Resource<List<MovieUI>>>
+    fun getNowPlayingMovies() : Flow<Resource<List<MovieUI>>>
+    fun getpopularTvSeries()  : Flow<Resource<List<SeriesUI>>>
+    fun getTopRatedTvSeries() : Flow<Resource<List<SeriesUI>>>
 }
