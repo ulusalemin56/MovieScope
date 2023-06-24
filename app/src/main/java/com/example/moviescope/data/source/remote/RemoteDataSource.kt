@@ -5,11 +5,11 @@ import com.example.moviescope.data.model.movie.MoviesResponse
 import com.example.moviescope.data.model.series.SeriesResponse
 
 interface RemoteDataSource {
-    fun getTopRatedMovies(callback : (MoviesResponse) -> Unit)
+    suspend fun getTopRatedMovies() : MoviesResponse
 
-    fun getNowPlayingMovies(callback : (MoviesResponse) -> Unit)
+    suspend fun getNowPlayingMovies() : MoviesResponse
 
-    fun getPopularTvSeries(callback : (SeriesResponse) -> Unit)
+    suspend fun getPopularTvSeries() : SeriesResponse
 
-    fun getTopRatedTvSeries(callback : (SeriesResponse) -> Unit)
+    suspend fun getTopRatedTvSeries() : SeriesResponse
 }

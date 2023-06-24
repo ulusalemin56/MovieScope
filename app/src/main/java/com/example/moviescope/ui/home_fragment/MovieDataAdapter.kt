@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
-import com.example.moviescope.data.model.movie.Movie
 import com.example.moviescope.databinding.ItemImageBinding
+import com.example.moviescope.domain.model.MovieUI
 import com.example.moviescope.util.Constants
 
 class MovieDataAdapter(
-    private val movies: List<Movie>
+    private val movies: List<MovieUI>
 ) : Adapter<MovieDataAdapter.ImageMovieViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -34,7 +34,7 @@ class MovieDataAdapter(
     inner class ImageMovieViewHolder(private val binding: ItemImageBinding) :
         ViewHolder(binding.root) {
 
-        fun bind(movie: Movie) {
+        fun bind(movie: MovieUI) {
             Glide.with(binding.root).load(Constants.BASE_URL_IMAGE.plus(movie.posterPath))
                 .into(binding.imageView)
         }
