@@ -1,6 +1,7 @@
 package com.example.moviescope.di
 
 
+import com.example.moviescope.BuildConfig
 import com.example.moviescope.data.network.MovieScopeService
 import com.example.moviescope.util.Constants
 import com.example.moviescope.util.interceptor.ApiAuthInterceptor
@@ -28,7 +29,13 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideHttpLoginInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        return HttpLoggingInterceptor().apply {
+            if (BuildConfig.DEBUG) {
+                this.level = HttpLoggingInterceptor.Level.BODY
+            } else {
+                this.level = HttpLoggingInterceptor.Level.NONE
+            }
+        }
     }
 
     @Provides
