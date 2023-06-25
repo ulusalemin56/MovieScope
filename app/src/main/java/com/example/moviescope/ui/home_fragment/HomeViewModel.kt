@@ -17,7 +17,6 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     movieScopeRepository: MovieScopeRepository
 ) : ViewModel() {
-
     // Type casting from Flow type to StateFlow type.
     val topRatedMovies: StateFlow<Resource<List<MovieUI>>> =
         movieScopeRepository.getTopRatedMovies().stateIn(
@@ -49,5 +48,4 @@ class HomeViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = Resource.Loading
         )
-
 }

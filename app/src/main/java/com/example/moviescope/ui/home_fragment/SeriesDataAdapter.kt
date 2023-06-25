@@ -17,9 +17,7 @@ class SeriesDataAdapter(
         viewType: Int
     ): SeriesDataAdapter.SeriesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-
         val binding = ItemImageBinding.inflate(layoutInflater)
-
         return SeriesViewHolder(binding)
     }
 
@@ -31,9 +29,10 @@ class SeriesDataAdapter(
         return series.size
     }
 
-    inner class SeriesViewHolder(private val binding : ItemImageBinding) : ViewHolder(binding.root) {
-
-        fun bind(series : SeriesUI) {
+    inner class SeriesViewHolder(
+        private val binding: ItemImageBinding
+    ) : ViewHolder(binding.root) {
+        fun bind(series: SeriesUI) {
             Glide.with(binding.root).load(Constants.BASE_URL_IMAGE.plus(series.posterPath))
                 .into(binding.imageView)
         }

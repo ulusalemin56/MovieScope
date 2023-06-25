@@ -26,18 +26,14 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater)
-
         initCollect()
-
         return binding.root
     }
 
     private fun initCollect() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-
                 with(viewModel) {
-
                     launch {
                         topRatedMovies.collectLatest {
                             when (it) {
@@ -63,7 +59,6 @@ class HomeFragment : Fragment() {
                             }
                         }
                     }
-
 
                     launch {
                         popularTvSeries.collectLatest {
@@ -91,12 +86,9 @@ class HomeFragment : Fragment() {
                             }
                         }
                     }
-
                 }
-
             }
         }
-
     }
 
     private fun initTopRatedMoviesRV(movies: List<MovieUI>) {
@@ -122,5 +114,4 @@ class HomeFragment : Fragment() {
     private fun getSeriesAdapter(series: List<SeriesUI>): SeriesDataAdapter {
         return SeriesDataAdapter(series)
     }
-
 }

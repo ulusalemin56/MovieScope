@@ -22,7 +22,6 @@ class MovieScopeRepositoryImpl @Inject constructor(
             emit(Resource.Error(t))
         }
     }
-
     override fun getNowPlayingMovies(): Flow<Resource<List<MovieUI>>> = flow {
         emit(Resource.Loading)
         try {
@@ -48,7 +47,7 @@ class MovieScopeRepositoryImpl @Inject constructor(
         try {
             val response = remoteDataSource.getTopRatedTvSeries().results.toSeriesUI()
             emit(Resource.Success(response))
-        } catch (t : Throwable) {
+        } catch (t: Throwable) {
             emit(Resource.Error(t))
         }
     }

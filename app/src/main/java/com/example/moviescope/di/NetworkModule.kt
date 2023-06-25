@@ -58,7 +58,6 @@ object NetworkModule {
         return GsonConverterFactory.create()
     }
 
-
     @Provides
     @Singleton
     fun provieRetrofit(

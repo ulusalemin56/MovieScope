@@ -17,9 +17,7 @@ class MovieDataAdapter(
         viewType: Int
     ): MovieDataAdapter.ImageMovieViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-
         val binding = ItemImageBinding.inflate(layoutInflater)
-
         return ImageMovieViewHolder(binding)
     }
 
@@ -31,13 +29,12 @@ class MovieDataAdapter(
         return movies.size
     }
 
-    inner class ImageMovieViewHolder(private val binding: ItemImageBinding) :
-        ViewHolder(binding.root) {
-
+    inner class ImageMovieViewHolder(
+        private val binding: ItemImageBinding
+    ) : ViewHolder(binding.root) {
         fun bind(movie: MovieUI) {
             Glide.with(binding.root).load(Constants.BASE_URL_IMAGE.plus(movie.posterPath))
                 .into(binding.imageView)
         }
-
     }
 }
