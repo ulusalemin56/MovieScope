@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.bumptech.glide.Glide
 import com.example.moviescope.databinding.ItemImageBinding
 import com.example.moviescope.domain.model.MovieUI
 import com.example.moviescope.util.Constants
+import com.example.moviescope.util.loadImage
 
 class MovieDataAdapter(
     private val movies: List<MovieUI>,
-    private val onClickMovie : (position : Int) -> Unit
+    private val onClickMovie: (position: Int) -> Unit
 ) : Adapter<MovieDataAdapter.ImageMovieViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -34,11 +34,11 @@ class MovieDataAdapter(
         private val binding: ItemImageBinding
     ) : ViewHolder(binding.root) {
         fun bind(movie: MovieUI) {
-            Glide.with(binding.root).load(Constants.BASE_URL_IMAGE.plus(movie.posterPath))
-                .into(binding.imageView)
-
-            binding.cardView.setOnClickListener {
-                onClickMovie(adapterPosition)
+            with(binding) {
+                imageView.loadImage(Constants.BASE_URL_IMAGE.plus(movie.posterPath))
+                cardView.setOnClickListener {
+                    onClickMovie(adapterPosition)
+                }
             }
         }
     }
