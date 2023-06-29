@@ -10,7 +10,8 @@ import com.example.moviescope.domain.model.MovieUI
 import com.example.moviescope.util.Constants
 
 class MovieDataAdapter(
-    private val movies: List<MovieUI>
+    private val movies: List<MovieUI>,
+    private val onClickMovie : (position : Int) -> Unit
 ) : Adapter<MovieDataAdapter.ImageMovieViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -35,6 +36,10 @@ class MovieDataAdapter(
         fun bind(movie: MovieUI) {
             Glide.with(binding.root).load(Constants.BASE_URL_IMAGE.plus(movie.posterPath))
                 .into(binding.imageView)
+
+            binding.cardView.setOnClickListener {
+                onClickMovie(adapterPosition)
+            }
         }
     }
 }

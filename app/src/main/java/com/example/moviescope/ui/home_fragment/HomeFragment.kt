@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.moviescope.databinding.FragmentHomeBinding
 import com.example.moviescope.domain.model.MovieUI
 import com.example.moviescope.domain.model.SeriesUI
@@ -100,7 +101,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun getMovieAdapter(movies: List<MovieUI>): MovieDataAdapter {
-        return MovieDataAdapter(movies)
+        return MovieDataAdapter(movies) { position ->
+            val title = movies[position].title
+            val backdropPath = movies[position].backdropPath
+            val voteAverage = movies[position].voteAverage.toFloat()
+            val releaseDate = movies[position].releaseDate
+            val overView = movies[position].overview
+
+            val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+                backdropPath, title, voteAverage, releaseDate, overView
+            )
+            findNavController().navigate(action)
+        }
     }
 
     private fun initPopularTvSeriesRV(series: List<SeriesUI>) {
@@ -112,6 +124,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun getSeriesAdapter(series: List<SeriesUI>): SeriesDataAdapter {
-        return SeriesDataAdapter(series)
+        return SeriesDataAdapter(series) { position ->
+            val title = series[position].name
+            val backdropPath = series[position].backdropPath
+            val voteAverage = series[position].voteAverage.toFloat()
+            val releaseDate = series[position].firstAirDate
+            val overView = series[position].overview
+
+            val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+                backdropPath, title, voteAverage, releaseDate, overView
+            )
+            findNavController().navigate(action)
+        }
     }
+
 }

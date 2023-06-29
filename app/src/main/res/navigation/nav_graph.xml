@@ -9,12 +9,34 @@
         android:id="@+id/homeFragment"
         android:name="com.example.moviescope.ui.home_fragment.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.moviescope.ui.detail_fragment.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="backdropPath"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="voteAverage"
+            app:argType="float" />
+        <argument
+            android:name="releaseDate"
+            app:argType="string" />
+        <argument
+            android:name="overvew"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.moviescope.ui.favorites_fragment.FavoritesFragment"

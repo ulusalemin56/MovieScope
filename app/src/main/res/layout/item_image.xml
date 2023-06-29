@@ -9,10 +9,10 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
-    app:cardElevation="0dp"
-    app:strokeColor="@color/home_background"
     app:cardCornerRadius="10dp"
-    app:cardUseCompatPadding="true">
+    app:cardElevation="0dp"
+    app:cardUseCompatPadding="true"
+    app:strokeColor="@color/home_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
