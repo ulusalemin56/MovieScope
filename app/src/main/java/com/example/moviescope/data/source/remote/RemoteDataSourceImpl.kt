@@ -1,7 +1,7 @@
 package com.example.moviescope.data.source.remote
 
-import com.example.moviescope.data.model.movie.MoviesResponse
-import com.example.moviescope.data.model.series.SeriesResponse
+import com.example.moviescope.data.model.remote.movie.MoviesResponse
+import com.example.moviescope.data.model.remote.series.SeriesResponse
 import com.example.moviescope.data.network.MovieScopeService
 import javax.inject.Inject
 

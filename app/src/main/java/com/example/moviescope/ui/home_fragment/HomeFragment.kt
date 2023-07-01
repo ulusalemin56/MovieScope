@@ -12,7 +12,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.moviescope.databinding.FragmentHomeBinding
 import com.example.moviescope.domain.model.MovieUI
-import com.example.moviescope.domain.model.SeriesUI
 import com.example.moviescope.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -100,6 +99,14 @@ class HomeFragment : Fragment() {
         binding.nowPlayingMoviesRecyclerView.adapter = getMovieAdapter(movies)
     }
 
+    private fun initPopularTvSeriesRV(series: List<MovieUI>) {
+        binding.popularTvSeriesRecyclerView.adapter = getMovieAdapter(series)
+    }
+
+    private fun initTopRatedTvSeriesRV(series: List<MovieUI>) {
+        binding.topRatedTvSeriesRecyclerView.adapter = getMovieAdapter(series)
+    }
+
     private fun getMovieAdapter(movies: List<MovieUI>): MovieDataAdapter {
         return MovieDataAdapter(movies) { position ->
             val title = movies[position].title
@@ -107,29 +114,6 @@ class HomeFragment : Fragment() {
             val voteAverage = movies[position].voteAverage.toFloat()
             val releaseDate = movies[position].releaseDate
             val overView = movies[position].overview
-
-            val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
-                backdropPath, title, voteAverage, releaseDate, overView
-            )
-            findNavController().navigate(action)
-        }
-    }
-
-    private fun initPopularTvSeriesRV(series: List<SeriesUI>) {
-        binding.popularTvSeriesRecyclerView.adapter = getSeriesAdapter(series)
-    }
-
-    private fun initTopRatedTvSeriesRV(series: List<SeriesUI>) {
-        binding.topRatedTvSeriesRecyclerView.adapter = getSeriesAdapter(series)
-    }
-
-    private fun getSeriesAdapter(series: List<SeriesUI>): SeriesDataAdapter {
-        return SeriesDataAdapter(series) { position ->
-            val title = series[position].name
-            val backdropPath = series[position].backdropPath
-            val voteAverage = series[position].voteAverage.toFloat()
-            val releaseDate = series[position].firstAirDate
-            val overView = series[position].overview
 
             val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
                 backdropPath, title, voteAverage, releaseDate, overView

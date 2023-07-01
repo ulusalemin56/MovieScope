@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviescope.data.repo.MovieScopeRepository
 import com.example.moviescope.domain.model.MovieUI
-import com.example.moviescope.domain.model.SeriesUI
 import com.example.moviescope.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -34,7 +33,7 @@ class HomeViewModel @Inject constructor(
         )
 
     // Type casting from Flow type to StateFlow type.
-    val popularTvSeries: StateFlow<Resource<List<SeriesUI>>> =
+    val popularTvSeries: StateFlow<Resource<List<MovieUI>>> =
         movieScopeRepository.getpopularTvSeries().stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
@@ -42,7 +41,7 @@ class HomeViewModel @Inject constructor(
         )
 
     // Type casting from Flow type to StateFlow type.
-    val topRatedTvSeries: StateFlow<Resource<List<SeriesUI>>> =
+    val topRatedTvSeries: StateFlow<Resource<List<MovieUI>>> =
         movieScopeRepository.getTopRatedTvSeries().stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),

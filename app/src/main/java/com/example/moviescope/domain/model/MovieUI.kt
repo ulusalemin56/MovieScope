@@ -1,7 +1,6 @@
 package com.example.moviescope.domain.model
 
 data class MovieUI(
-    val adult : Boolean,
     val backdropPath: String?,
     val id: Int,
     val overview: String?,

@@ -1,14 +1,12 @@
 package com.example.moviescope.domain.mapper
 
-import com.example.moviescope.data.model.movie.Movie
-import com.example.moviescope.data.model.series.Series
+import com.example.moviescope.data.model.remote.movie.Movie
+import com.example.moviescope.data.model.remote.series.Series
 import com.example.moviescope.domain.model.MovieUI
-import com.example.moviescope.domain.model.SeriesUI
 
-fun List<Movie>.toMovieUI(): List<MovieUI> {
+fun List<Movie>.movieToMovieUI(): List<MovieUI> {
     return this.map {
         MovieUI(
-            adult = it.adult,
             backdropPath = it.backdropPath,
             id = it.id,
             overview = it.overview,
@@ -20,16 +18,16 @@ fun List<Movie>.toMovieUI(): List<MovieUI> {
     }
 }
 
-fun List<Series>.toSeriesUI() : List<SeriesUI> {
+fun List<Series>.seriesToMovieUI() : List<MovieUI> {
     return this.map {
-        SeriesUI(
+        MovieUI(
             backdropPath = it.backdropPath,
-            firstAirDate = it.firstAirDate,
             id = it.id,
-            name = it.name,
             overview = it.overview,
             posterPath = it.posterPath,
-            voteAverage = it.voteAverage
+            releaseDate = it.firstAirDate,
+            title = it.name,
+            voteAverage = it.voteAverage,
         )
     }
 }

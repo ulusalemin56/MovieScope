@@ -1,13 +1,13 @@
-package com.example.moviescope.data.model.series
+package com.example.moviescope.data.model.remote.movie
 
 
 import com.google.gson.annotations.SerializedName
 
-data class SeriesResponse(
+data class MoviesResponse(
     @SerializedName("page")
     val page: Int,
     @SerializedName("results")
-    val results: List<Series>,
+    val results: List<Movie>,
     @SerializedName("total_pages")
     val totalPages: Int,
     @SerializedName("total_results")
