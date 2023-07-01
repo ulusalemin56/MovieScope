@@ -1,13 +1,15 @@
 package com.example.moviescope.di
 
 
+import android.content.Context
 import com.example.moviescope.BuildConfig
-import com.example.moviescope.data.network.MovieScopeService
 import com.example.moviescope.util.Constants
+import com.example.moviescope.util.NetworkUtil
 import com.example.moviescope.util.interceptor.ApiAuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,7 +21,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
+    @Provides
+    fun provideIsInternetAvailable(@ApplicationContext context : Context) : Boolean {
+        return NetworkUtil.isInternetAvailable(context)
+    }
     @Provides
     @Singleton
     fun provideApiAuthInterceptor() : ApiAuthInterceptor{
@@ -70,10 +75,4 @@ object NetworkModule {
             .client(okHttpClient)
             .build()
     }
-
-    @Provides
-    fun provideMovieScopeService(retrofit: Retrofit): MovieScopeService {
-        return retrofit.create(MovieScopeService::class.java)
-    }
-
 }

@@ -114,7 +114,6 @@ class HomeFragment : Fragment() {
             val voteAverage = movies[position].voteAverage.toFloat()
             val releaseDate = movies[position].releaseDate
             val overView = movies[position].overview
-
             val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
                 backdropPath, title, voteAverage, releaseDate, overView
             )
