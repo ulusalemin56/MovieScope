@@ -1,5 +1,6 @@
 package com.example.moviescope.data.repo
 
+import com.example.moviescope.data.model.local.BookmarkEntity
 import com.example.moviescope.domain.model.MovieUI
 import com.example.moviescope.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -10,4 +11,8 @@ interface MovieScopeRepository {
     fun getNowPlayingMovies() : Flow<Resource<List<MovieUI>>>
     fun getpopularTvSeries()  : Flow<Resource<List<MovieUI>>>
     fun getTopRatedTvSeries() : Flow<Resource<List<MovieUI>>>
+    suspend fun insertMediaToBookmarks(media: BookmarkEntity)
+    suspend fun deleteMediaFromBookmarks(media: BookmarkEntity)
+    suspend fun isBookmarked(id: Int) : Boolean
+    fun fetchMediaFromBookmarks(): Flow<Resource<List<BookmarkEntity>>>
 }

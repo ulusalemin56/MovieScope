@@ -1,5 +1,11 @@
 package com.example.moviescope.domain.model
 
+import android.os.Parcelable
+import com.example.moviescope.util.enums.MediaTypeEnum
+import kotlinx.parcelize.Parcelize
+
+
+@Parcelize
 data class MovieUI(
     val backdropPath: String?,
     val id: Int,
@@ -8,5 +14,5 @@ data class MovieUI(
     val releaseDate: String,
     val title: String,
     val voteAverage: Double,
-    var isFavorite : Boolean = false
-)
+    val mediaTypeEnum: MediaTypeEnum
+) : Parcelable

@@ -24,22 +24,8 @@
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail">
         <argument
-            android:name="backdropPath"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="title"
-            app:argType="string" />
-        <argument
-            android:name="voteAverage"
-            app:argType="float" />
-        <argument
-            android:name="releaseDate"
-            app:argType="string" />
-        <argument
-            android:name="overvew"
-            app:argType="string"
-            app:nullable="true" />
+            android:name="movieUI"
+            app:argType="com.example.moviescope.domain.model.MovieUI" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"

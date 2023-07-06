@@ -8,8 +8,6 @@ import androidx.room.Query
 import com.example.moviescope.data.model.local.BookmarkEntity
 import com.example.moviescope.data.model.local.MovieResponseEntity
 import com.example.moviescope.util.enums.MediaTypeEnum
-import kotlinx.coroutines.flow.Flow
-
 @Dao
 interface MovieDao {
     @Insert(entity = MovieResponseEntity::class, onConflict = OnConflictStrategy.REPLACE)
@@ -24,12 +22,12 @@ interface MovieDao {
     @Insert(entity = BookmarkEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMediaToBookmarks(media: BookmarkEntity)
 
-    @Query("SELECT * FROM bookmarks ORDER BY addDate DESC")
-    suspend fun fetchMediaFromBookmarks(): Flow<List<BookmarkEntity>>
-
     @Delete
     suspend fun deleteMediaFromBookmarks(media: BookmarkEntity)
 
     @Query("SELECT EXISTS(SELECT * FROM bookmarks WHERE id = :id)")
     suspend fun isBookmarked(id: Int) : Boolean
+
+    @Query("SELECT * FROM bookmarks ORDER BY addDate DESC")
+    suspend fun fetchMediaFromBookmarks(): List<BookmarkEntity>
 }

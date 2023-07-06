@@ -109,13 +109,9 @@ class HomeFragment : Fragment() {
 
     private fun getMovieAdapter(movies: List<MovieUI>): MovieDataAdapter {
         return MovieDataAdapter(movies) { position ->
-            val title = movies[position].title
-            val backdropPath = movies[position].backdropPath ?: movies[position].posterPath
-            val voteAverage = movies[position].voteAverage.toFloat()
-            val releaseDate = movies[position].releaseDate
-            val overView = movies[position].overview
+            val movieUI = movies[position]
             val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
-                backdropPath, title, voteAverage, releaseDate, overView
+                movieUI
             )
             findNavController().navigate(action)
         }

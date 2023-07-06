@@ -1,5 +1,6 @@
 package com.example.moviescope.data.repo
 
+import com.example.moviescope.data.model.local.BookmarkEntity
 import com.example.moviescope.data.source.local.LocalDataSource
 import com.example.moviescope.data.source.remote.RemoteDataSource
 import com.example.moviescope.domain.mapper.seriesToMovieUI
@@ -22,7 +23,7 @@ class MovieScopeRepositoryImpl @Inject constructor(
         emit(Resource.Loading)
         try {
             if (isInternetAvailable) {
-                val dataFromRemoteDB = remoteDataSource.getTopRatedMovies().results.movieToMovieUI()
+                val dataFromRemoteDB = remoteDataSource.getTopRatedMovies().results.movieToMovieUI(MediaTypeEnum.TOP_RATED_MOVIES)
                 emit(Resource.Success(dataFromRemoteDB))
                 insertDataToDataBase(dataFromRemoteDB, MediaTypeEnum.TOP_RATED_MOVIES)
             } else {
@@ -38,7 +39,8 @@ class MovieScopeRepositoryImpl @Inject constructor(
         emit(Resource.Loading)
         try {
             if (isInternetAvailable) {
-                val dataFromRemoteDB = remoteDataSource.getNowPlayingMovies().results.movieToMovieUI()
+                val dataFromRemoteDB =
+                    remoteDataSource.getNowPlayingMovies().results.movieToMovieUI(MediaTypeEnum.NOW_PLAYING_MOVIES)
                 emit(Resource.Success(dataFromRemoteDB))
                 insertDataToDataBase(dataFromRemoteDB, MediaTypeEnum.NOW_PLAYING_MOVIES)
             } else {
@@ -54,7 +56,8 @@ class MovieScopeRepositoryImpl @Inject constructor(
         emit(Resource.Loading)
         try {
             if (isInternetAvailable) {
-                val dataFromRemoteDB = remoteDataSource.getPopularTvSeries().results.seriesToMovieUI()
+                val dataFromRemoteDB =
+                    remoteDataSource.getPopularTvSeries().results.seriesToMovieUI(MediaTypeEnum.POPULAR_TV_SERIES)
                 emit(Resource.Success(dataFromRemoteDB))
                 insertDataToDataBase(dataFromRemoteDB, MediaTypeEnum.POPULAR_TV_SERIES)
             } else {
@@ -70,7 +73,8 @@ class MovieScopeRepositoryImpl @Inject constructor(
         emit(Resource.Loading)
         try {
             if (isInternetAvailable) {
-                val dataFromRemoteDB = remoteDataSource.getTopRatedTvSeries().results.seriesToMovieUI()
+                val dataFromRemoteDB =
+                    remoteDataSource.getTopRatedTvSeries().results.seriesToMovieUI(MediaTypeEnum.TOP_RATED_TV_SERIES)
                 emit(Resource.Success(dataFromRemoteDB))
                 insertDataToDataBase(dataFromRemoteDB, MediaTypeEnum.TOP_RATED_TV_SERIES)
             } else {
@@ -82,11 +86,34 @@ class MovieScopeRepositoryImpl @Inject constructor(
         }
     }
 
-    private suspend fun insertDataToDataBase(data : List<MovieUI>, mediaTypeEnum: MediaTypeEnum) {
-        localDataSource.clearDataMovieResponseWithType(mediaTypeEnum)
-        localDataSource.insertMovieResponse(data.toMovieResponseEntityList(mediaTypeEnum))
+    override suspend fun insertMediaToBookmarks(media: BookmarkEntity) {
+        localDataSource.insertMediaToBookmarks(media)
     }
-    private suspend fun fetchDataFromDataBase(mediaTypeEnum: MediaTypeEnum) : List<MovieUI> {
+
+    override suspend fun deleteMediaFromBookmarks(media: BookmarkEntity) {
+        localDataSource.deleteMediaFromBookmarks(media)
+    }
+
+    override suspend fun isBookmarked(id: Int): Boolean {
+        return localDataSource.isBookmarked(id)
+    }
+
+    override fun fetchMediaFromBookmarks(): Flow<Resource<List<BookmarkEntity>>> = flow {
+        emit(Resource.Loading)
+        try {
+            val dataFromBookmarks = localDataSource.fetchMediaFromBookmarks()
+            emit(Resource.Success(dataFromBookmarks))
+        } catch (t: Throwable) {
+            emit(Resource.Error(t))
+        }
+    }
+
+    private suspend fun insertDataToDataBase(data: List<MovieUI>, mediaTypeEnum: MediaTypeEnum) {
+        localDataSource.clearDataMovieResponseWithType(mediaTypeEnum)
+        localDataSource.insertMovieResponse(data.toMovieResponseEntityList())
+    }
+
+    private suspend fun fetchDataFromDataBase(mediaTypeEnum: MediaTypeEnum): List<MovieUI> {
         return localDataSource.getDataMovieResponseWithType(mediaTypeEnum).toMovieUI()
     }
 }
