@@ -42,14 +42,13 @@
             app:layout_constraintTop_toBottomOf="@id/posterMovieCardView"
             tools:text="JOHN WİCK" />
 
-        <ImageButton
+        <CheckBox
             android:id="@+id/likeIconButton"
-            android:layout_width="60dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/circular_background_like"
-            android:contentDescription="@string/search_button"
-            android:src="@drawable/ic_launcher_like_icon"
+            android:button="@android:color/transparent"
+            android:background="@drawable/menu_bookmark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/posterMovieCardView" />
 
