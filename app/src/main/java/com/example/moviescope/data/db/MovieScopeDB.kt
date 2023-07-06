@@ -2,10 +2,11 @@ package com.example.moviescope.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.example.moviescope.data.model.local.BookmarkEntity
 import com.example.moviescope.data.model.local.MovieResponseEntity
 
 @Database(
-    entities = [MovieResponseEntity::class],
+    entities = [MovieResponseEntity::class, BookmarkEntity::class],
     version = 1,
     exportSchema = false
 )
