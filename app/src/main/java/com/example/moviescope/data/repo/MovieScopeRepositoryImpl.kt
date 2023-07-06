@@ -22,14 +22,12 @@ class MovieScopeRepositoryImpl @Inject constructor(
         emit(Resource.Loading)
         try {
             if (isInternetAvailable) {
-                val response = remoteDataSource.getTopRatedMovies().results.movieToMovieUI()
-                emit(Resource.Success(response))
-                localDataSource.clearDataMovieResponseWithType(MediaTypeEnum.TOP_RATED_MOVIES)
-                localDataSource.insertMovieResponse(response.toMovieResponseEntityList(MediaTypeEnum.TOP_RATED_MOVIES))
+                val dataFromRemoteDB = remoteDataSource.getTopRatedMovies().results.movieToMovieUI()
+                emit(Resource.Success(dataFromRemoteDB))
+                insertDataToDataBase(dataFromRemoteDB, MediaTypeEnum.TOP_RATED_MOVIES)
             } else {
-                val response =
-                    localDataSource.getDataMovieResponseWithType(MediaTypeEnum.TOP_RATED_MOVIES)
-                emit(Resource.Success(response.toMovieUI()))
+                val dataFromLocalDB = fetchDataFromDataBase(MediaTypeEnum.TOP_RATED_MOVIES)
+                emit(Resource.Success(dataFromLocalDB))
             }
         } catch (t: Throwable) {
             emit(Resource.Error(t))
@@ -40,14 +38,12 @@ class MovieScopeRepositoryImpl @Inject constructor(
         emit(Resource.Loading)
         try {
             if (isInternetAvailable) {
-                val response = remoteDataSource.getNowPlayingMovies().results.movieToMovieUI()
-                emit(Resource.Success(response))
-                localDataSource.clearDataMovieResponseWithType(MediaTypeEnum.NOW_PLAYING_MOVIES)
-                localDataSource.insertMovieResponse(response.toMovieResponseEntityList(MediaTypeEnum.NOW_PLAYING_MOVIES))
+                val dataFromRemoteDB = remoteDataSource.getNowPlayingMovies().results.movieToMovieUI()
+                emit(Resource.Success(dataFromRemoteDB))
+                insertDataToDataBase(dataFromRemoteDB, MediaTypeEnum.NOW_PLAYING_MOVIES)
             } else {
-                val response =
-                    localDataSource.getDataMovieResponseWithType(MediaTypeEnum.NOW_PLAYING_MOVIES)
-                emit(Resource.Success(response.toMovieUI()))
+                val dataFromLocalDB = fetchDataFromDataBase(MediaTypeEnum.NOW_PLAYING_MOVIES)
+                emit(Resource.Success(dataFromLocalDB))
             }
         } catch (t: Throwable) {
             emit(Resource.Error(t))
@@ -57,8 +53,14 @@ class MovieScopeRepositoryImpl @Inject constructor(
     override fun getpopularTvSeries(): Flow<Resource<List<MovieUI>>> = flow {
         emit(Resource.Loading)
         try {
-            val response = remoteDataSource.getPopularTvSeries().results.seriesToMovieUI()
-            emit(Resource.Success(response))
+            if (isInternetAvailable) {
+                val dataFromRemoteDB = remoteDataSource.getPopularTvSeries().results.seriesToMovieUI()
+                emit(Resource.Success(dataFromRemoteDB))
+                insertDataToDataBase(dataFromRemoteDB, MediaTypeEnum.POPULAR_TV_SERIES)
+            } else {
+                val dataFromLocalDB = fetchDataFromDataBase(MediaTypeEnum.POPULAR_TV_SERIES)
+                emit(Resource.Success(dataFromLocalDB))
+            }
         } catch (t: Throwable) {
             emit(Resource.Error(t))
         }
@@ -67,10 +69,24 @@ class MovieScopeRepositoryImpl @Inject constructor(
     override fun getTopRatedTvSeries(): Flow<Resource<List<MovieUI>>> = flow {
         emit(Resource.Loading)
         try {
-            val response = remoteDataSource.getTopRatedTvSeries().results.seriesToMovieUI()
-            emit(Resource.Success(response))
+            if (isInternetAvailable) {
+                val dataFromRemoteDB = remoteDataSource.getTopRatedTvSeries().results.seriesToMovieUI()
+                emit(Resource.Success(dataFromRemoteDB))
+                insertDataToDataBase(dataFromRemoteDB, MediaTypeEnum.TOP_RATED_TV_SERIES)
+            } else {
+                val dataFromLocalDB = fetchDataFromDataBase(MediaTypeEnum.TOP_RATED_TV_SERIES)
+                emit(Resource.Success(dataFromLocalDB))
+            }
         } catch (t: Throwable) {
             emit(Resource.Error(t))
         }
+    }
+
+    private suspend fun insertDataToDataBase(data : List<MovieUI>, mediaTypeEnum: MediaTypeEnum) {
+        localDataSource.clearDataMovieResponseWithType(mediaTypeEnum)
+        localDataSource.insertMovieResponse(data.toMovieResponseEntityList(mediaTypeEnum))
+    }
+    private suspend fun fetchDataFromDataBase(mediaTypeEnum: MediaTypeEnum) : List<MovieUI> {
+        return localDataSource.getDataMovieResponseWithType(mediaTypeEnum).toMovieUI()
     }
 }
