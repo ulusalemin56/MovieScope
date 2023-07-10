@@ -19,7 +19,7 @@ class FavoritesViewModel @Inject constructor(
     val fetchMediaFromBookmarks : StateFlow<Resource<List<BookmarkEntity>>> =
         repository.fetchMediaFromBookmarks().stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
+            started = SharingStarted.WhileSubscribed(),
             initialValue = Resource.Loading
         )
 }

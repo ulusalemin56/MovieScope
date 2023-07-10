@@ -45,8 +45,8 @@ class FavoritesFragment : Fragment() {
             }
         }
     }
-
     private fun initFavoritesRV(bookmarks: List<BookmarkEntity>) {
-
+        val adapter = FavoritesAdapter(bookmarks)
+        binding.favoritesRecyclerView.adapter = adapter
     }
 }
