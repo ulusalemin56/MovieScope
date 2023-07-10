@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.example.moviescope.databinding.FragmentDetailBinding
 import com.example.moviescope.domain.mapper.toBookmarkEntity
@@ -13,12 +16,14 @@ import com.example.moviescope.util.Constants
 import com.example.moviescope.util.getReformatDate
 import com.example.moviescope.util.loadImage
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
     private lateinit var binding: FragmentDetailBinding
     private val args: DetailFragmentArgs by navArgs()
-    private val viewModel : DetailViewModel by viewModels()
+    private val viewModel: DetailViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +40,15 @@ class DetailFragment : Fragment() {
             rateTextView.text = args.movieUI.voteAverage.toString()
             yearTextView.text = getReformatDate(args.movieUI.releaseDate)
             prologTextView.text = args.movieUI.overview
-            likeIconButton.isChecked = viewModel.isBookmarked(args.movieUI.id)
+            viewModel.initIsBookmarked(args.movieUI.id)
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.isBookmarked.collectLatest {
+                        likeIconButton.isChecked = it
+                    }
+                }
+            }
 
             likeIconButton.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {

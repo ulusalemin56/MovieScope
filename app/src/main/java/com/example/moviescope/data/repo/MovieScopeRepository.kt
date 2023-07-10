@@ -13,6 +13,6 @@ interface MovieScopeRepository {
     fun getTopRatedTvSeries() : Flow<Resource<List<MovieUI>>>
     suspend fun insertMediaToBookmarks(media: BookmarkEntity)
     suspend fun deleteMediaFromBookmarks(media: BookmarkEntity)
-    suspend fun isBookmarked(id: Int) : Boolean
+    fun isBookmarked(id: Int) : Flow<Boolean>
     fun fetchMediaFromBookmarks(): Flow<Resource<List<BookmarkEntity>>>
 }

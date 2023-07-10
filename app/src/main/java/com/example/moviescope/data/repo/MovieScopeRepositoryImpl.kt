@@ -94,8 +94,12 @@ class MovieScopeRepositoryImpl @Inject constructor(
         localDataSource.deleteMediaFromBookmarks(media)
     }
 
-    override suspend fun isBookmarked(id: Int): Boolean {
-        return localDataSource.isBookmarked(id)
+    override fun isBookmarked(id: Int) : Flow<Boolean> = flow {
+        try {
+            emit(localDataSource.isBookmarked(id))
+        } catch (t : Throwable) {
+            t.printStackTrace()
+        }
     }
 
     override fun fetchMediaFromBookmarks(): Flow<Resource<List<BookmarkEntity>>> = flow {
