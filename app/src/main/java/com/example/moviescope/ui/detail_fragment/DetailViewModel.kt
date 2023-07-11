@@ -7,6 +7,7 @@ import com.example.moviescope.data.repo.MovieScopeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,7 +18,7 @@ class DetailViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _isBookmarked: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val isBookmarked: StateFlow<Boolean> = _isBookmarked
+    val isBookmarked: StateFlow<Boolean> = _isBookmarked.asStateFlow()
 
     fun insertMediaToBookmarks(media: BookmarkEntity) = viewModelScope.launch {
         repository.insertMediaToBookmarks(media)

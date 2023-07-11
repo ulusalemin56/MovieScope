@@ -19,7 +19,7 @@ interface MovieDao {
     @Query("SELECT * FROM movies WHERE mediaTypeEnum = :mediaType ORDER BY voteAverage,id DESC")
     suspend fun getDataMovieResponseWithType(mediaType: MediaTypeEnum): List<MovieResponseEntity>
 
-    @Insert(entity = BookmarkEntity::class, onConflict = OnConflictStrategy.REPLACE)
+    @Insert(entity = BookmarkEntity::class, onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMediaToBookmarks(media: BookmarkEntity)
 
     @Delete
