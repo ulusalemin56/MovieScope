@@ -10,7 +10,8 @@ import com.example.moviescope.util.Constants
 import com.example.moviescope.util.loadImage
 
 class FavoritesAdapter(
-    private val bookmarks: List<BookmarkEntity>
+    private val bookmarks: List<BookmarkEntity>,
+    private val onClick : (BookmarkEntity) -> Unit
 ) : Adapter<FavoritesAdapter.FavoritesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -37,6 +38,10 @@ class FavoritesAdapter(
                 rateTextView.text = bookmark.voteAverage.toString()
                 yearTextView.text = bookmark.releaseDate
                 prologTextView.text = bookmark.overview
+
+                itemCardView.setOnClickListener {
+                    onClick(bookmark)
+                }
             }
         }
     }

@@ -9,8 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.moviescope.data.model.local.BookmarkEntity
 import com.example.moviescope.databinding.FragmentFavoritesBinding
+import com.example.moviescope.domain.mapper.toMovieUI
 import com.example.moviescope.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -36,7 +38,7 @@ class FavoritesFragment : Fragment() {
                     when (it) {
                         is Resource.Loading -> {}
                         is Resource.Success -> {
-                           initFavoritesRV(it.data)
+                            initFavoritesRV(it.data)
                         }
 
                         is Resource.Error -> {}
@@ -45,8 +47,16 @@ class FavoritesFragment : Fragment() {
             }
         }
     }
+
     private fun initFavoritesRV(bookmarks: List<BookmarkEntity>) {
-        val adapter = FavoritesAdapter(bookmarks)
-        binding.favoritesRecyclerView.adapter = adapter
+        binding.favoritesRecyclerView.adapter = getFavoritesAdapter(bookmarks)
+    }
+
+    private fun getFavoritesAdapter(bookmarks: List<BookmarkEntity>): FavoritesAdapter {
+        return FavoritesAdapter(bookmarks) {
+            val action =
+                FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(it.toMovieUI())
+            findNavController().navigate(action)
+        }
     }
 }

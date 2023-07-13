@@ -79,3 +79,16 @@ fun MovieUI.toBookmarkEntity() : BookmarkEntity {
         mediaTypeEnum = mediaTypeEnum
     )
 }
+
+fun BookmarkEntity.toMovieUI() : MovieUI {
+    return MovieUI(
+        id = id,
+        backdropPath = backdropPath,
+        overview = overview,
+        posterPath = posterPath,
+        releaseDate = releaseDate,
+        title = title,
+        voteAverage = voteAverage,
+        mediaTypeEnum = mediaTypeEnum
+    )
+}

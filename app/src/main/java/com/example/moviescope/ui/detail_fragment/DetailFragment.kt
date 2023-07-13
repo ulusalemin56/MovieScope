@@ -35,7 +35,7 @@ class DetailFragment : Fragment() {
 
     private fun initUi() {
         with(binding) {
-            posterMovieImageView.loadImage(Constants.BASE_URL_IMAGE.plus(args.movieUI.backdropPath))
+            posterMovieImageView.loadImage(Constants.BASE_URL_IMAGE.plus(args.movieUI.backdropPath ?: args.movieUI.posterPath))
             titleMovieTextView.text = args.movieUI.title
             rateTextView.text = args.movieUI.voteAverage.toString()
             yearTextView.text = getReformatDate(args.movieUI.releaseDate)
