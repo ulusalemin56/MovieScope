@@ -6,7 +6,7 @@ The MovieScope App is an application where you can track trends of films and TV 
 
 # Libraries Used
 
-+ MVVM + Clean Architecture
++ MVVM
 + [Hilt](https://developer.android.com/jetpack/compose/libraries#hilt)
 + [Room](https://developer.android.com/training/data-storage/room)
 + [Navigation Component](https://developer.android.com/guide/navigation/navigation-getting-started)
