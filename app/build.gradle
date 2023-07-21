@@ -98,4 +98,11 @@ dependencies {
 
     // Timber
     implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    // Facebook Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0@aar'
+
+    // Motion Toast
+    implementation 'com.github.Spikeysanju:MotionToast:1.4'
+
 }

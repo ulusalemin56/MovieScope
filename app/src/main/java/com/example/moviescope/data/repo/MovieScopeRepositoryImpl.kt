@@ -1,5 +1,6 @@
 package com.example.moviescope.data.repo
 
+import android.accounts.NetworkErrorException
 import com.example.moviescope.data.model.local.BookmarkEntity
 import com.example.moviescope.data.source.local.LocalDataSource
 import com.example.moviescope.data.source.remote.RemoteDataSource
@@ -28,6 +29,9 @@ class MovieScopeRepositoryImpl @Inject constructor(
                 insertDataToDataBase(dataFromRemoteDB, MediaTypeEnum.TOP_RATED_MOVIES)
             } else {
                 val dataFromLocalDB = fetchDataFromDataBase(MediaTypeEnum.TOP_RATED_MOVIES)
+                if (dataFromLocalDB.isEmpty()) {
+                    throw NetworkErrorException("No Internet Connection")
+                }
                 emit(Resource.Success(dataFromLocalDB))
             }
         } catch (t: Throwable) {
@@ -45,6 +49,9 @@ class MovieScopeRepositoryImpl @Inject constructor(
                 insertDataToDataBase(dataFromRemoteDB, MediaTypeEnum.NOW_PLAYING_MOVIES)
             } else {
                 val dataFromLocalDB = fetchDataFromDataBase(MediaTypeEnum.NOW_PLAYING_MOVIES)
+                if (dataFromLocalDB.isEmpty()) {
+                    throw NetworkErrorException("No Internet Connection")
+                }
                 emit(Resource.Success(dataFromLocalDB))
             }
         } catch (t: Throwable) {
@@ -62,6 +69,9 @@ class MovieScopeRepositoryImpl @Inject constructor(
                 insertDataToDataBase(dataFromRemoteDB, MediaTypeEnum.POPULAR_TV_SERIES)
             } else {
                 val dataFromLocalDB = fetchDataFromDataBase(MediaTypeEnum.POPULAR_TV_SERIES)
+                if (dataFromLocalDB.isEmpty()) {
+                    throw NetworkErrorException("No Internet Connection")
+                }
                 emit(Resource.Success(dataFromLocalDB))
             }
         } catch (t: Throwable) {
@@ -79,6 +89,9 @@ class MovieScopeRepositoryImpl @Inject constructor(
                 insertDataToDataBase(dataFromRemoteDB, MediaTypeEnum.TOP_RATED_TV_SERIES)
             } else {
                 val dataFromLocalDB = fetchDataFromDataBase(MediaTypeEnum.TOP_RATED_TV_SERIES)
+                if (dataFromLocalDB.isEmpty()) {
+                    throw NetworkErrorException("No Internet Connection")
+                }
                 emit(Resource.Success(dataFromLocalDB))
             }
         } catch (t: Throwable) {

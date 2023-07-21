@@ -5,4 +5,6 @@
 
     <color name="home_background">#FF020202</color>
     <color name="buttom_nav_background">#FF1a1c1e</color>
+    <color name="placeholder_item_image">#3C4043</color>
+
 </resources>
