@@ -13,9 +13,12 @@ import androidx.navigation.fragment.findNavController
 import com.example.moviescope.databinding.FragmentHomeBinding
 import com.example.moviescope.domain.model.MovieUI
 import com.example.moviescope.util.Resource
+import com.example.moviescope.util.safeNavigate
+import com.example.moviescope.util.showMotionToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import www.sanju.motiontoast.MotionToastStyle
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -33,56 +36,98 @@ class HomeFragment : Fragment() {
     private fun initCollect() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                with(viewModel) {
-                    launch {
-                        topRatedMovies.collectLatest {
-                            when (it) {
-                                is Resource.Loading -> {}
-                                is Resource.Success -> {
-                                    initTopRatedMoviesRV(it.data)
+                with(binding) {
+                    with(viewModel) {
+                        launch {
+                            topRatedMovies.collectLatest {
+                                when (it) {
+                                    is Resource.Loading -> {
+                                        topRatedMoviesContainerShimmer.visibility = View.VISIBLE
+                                        topRatedMoviesContainerShimmer.startShimmer()
+                                    }
+                                    is Resource.Success -> {
+                                        topRatedMoviesContainerShimmer.stopShimmer()
+                                        topRatedMoviesContainerShimmer.visibility = View.GONE
+                                        topRatedMoviesTextView.visibility = View.VISIBLE
+                                        topRatedMoviesRV.visibility = View.VISIBLE
+                                        initTopRatedMoviesRV(it.data)
+                                    }
+
+                                    is Resource.Error -> {}
                                 }
-
-                                is Resource.Error -> {}
-                            }
-                        }
-                    }
-
-                    launch {
-                        nowPlayingMovies.collectLatest {
-                            when (it) {
-                                is Resource.Loading -> {}
-                                is Resource.Success -> {
-                                    initNowPlayingMoviesRV(it.data)
-                                }
-
-                                is Resource.Error -> {}
-                            }
-                        }
-                    }
-
-                    launch {
-                        popularTvSeries.collectLatest {
-                            when (it) {
-                                is Resource.Loading -> {}
-                                is Resource.Success -> {
-                                    initPopularTvSeriesRV(it.data)
-                                }
-
-                                is Resource.Error -> {}
                             }
                         }
 
-                    }
+                        launch {
+                            nowPlayingMovies.collectLatest {
+                                when (it) {
+                                    is Resource.Loading -> {
+                                        nowPlayingMoviesContainerShimmer.visibility = View.VISIBLE
+                                        nowPlayingMoviesContainerShimmer.startShimmer()
+                                    }
+                                    is Resource.Success -> {
+                                        nowPlayingMoviesContainerShimmer.stopShimmer()
+                                        nowPlayingMoviesContainerShimmer.visibility = View.GONE
+                                        nowPlayingMoviesTextView.visibility = View.VISIBLE
+                                        nowPlayingMoviesRecyclerView.visibility = View.VISIBLE
+                                        initNowPlayingMoviesRV(it.data)
+                                    }
 
-                    launch {
-                        topRatedTvSeries.collect {
-                            when (it) {
-                                is Resource.Loading -> {}
-                                is Resource.Success -> {
-                                    initTopRatedTvSeriesRV(it.data)
+                                    is Resource.Error -> {
+                                        requireActivity().showMotionToast("ERROR",
+                                            it.throwable.localizedMessage ?: "Error",
+                                            MotionToastStyle.ERROR)
+                                    }
                                 }
+                            }
+                        }
 
-                                is Resource.Error -> {}
+                        launch {
+                            popularTvSeries.collectLatest {
+                                when (it) {
+                                    is Resource.Loading -> {
+                                        popularTvSeriesContainerShimmer.visibility = View.VISIBLE
+                                        popularTvSeriesContainerShimmer.startShimmer()
+                                    }
+                                    is Resource.Success -> {
+                                        popularTvSeriesContainerShimmer.stopShimmer()
+                                        popularTvSeriesContainerShimmer.visibility = View.GONE
+                                        popularTvSeriesTextView.visibility = View.VISIBLE
+                                        popularTvSeriesRecyclerView.visibility = View.VISIBLE
+                                        initPopularTvSeriesRV(it.data)
+                                    }
+
+                                    is Resource.Error -> {
+                                        requireActivity().showMotionToast("ERROR",
+                                            it.throwable.localizedMessage ?: "Error",
+                                            MotionToastStyle.ERROR)
+                                    }
+                                }
+                            }
+
+                        }
+
+                        launch {
+                            topRatedTvSeries.collect {
+                                when (it) {
+                                    is Resource.Loading -> {
+                                        topRatedTvSeriesContainerShimmer.visibility = View.VISIBLE
+                                        topRatedTvSeriesContainerShimmer.startShimmer()
+                                    }
+                                    is Resource.Success -> {
+                                        topRatedTvSeriesContainerShimmer.stopShimmer()
+                                        topRatedTvSeriesContainerShimmer.visibility = View.GONE
+                                        topRatedTvSeriesTextView.visibility = View.VISIBLE
+                                        topRatedTvSeriesRecyclerView.visibility = View.VISIBLE
+                                        initTopRatedTvSeriesRV(it.data)
+                                    }
+
+                                    is Resource.Error -> {
+                                        requireActivity().showMotionToast("ERROR",
+                                        it.throwable.localizedMessage ?: "Error",
+                                        MotionToastStyle.ERROR)
+                                    }
+                                }
                             }
                         }
                     }
@@ -92,7 +137,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initTopRatedMoviesRV(movies: List<MovieUI>) {
-        binding.topRatedMovies.adapter = getMovieAdapter(movies)
+        binding.topRatedMoviesRV.adapter = getMovieAdapter(movies)
     }
 
     private fun initNowPlayingMoviesRV(movies: List<MovieUI>) {
@@ -113,7 +158,7 @@ class HomeFragment : Fragment() {
             val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
                 movieUI
             )
-            findNavController().navigate(action)
+            findNavController().safeNavigate(action)
         }
     }
 

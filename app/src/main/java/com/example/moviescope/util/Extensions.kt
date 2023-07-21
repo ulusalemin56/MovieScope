@@ -1,12 +1,19 @@
 package com.example.moviescope.util
 
+import android.app.Activity
 import android.widget.ImageView
+import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.moviescope.R
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
+
 
 fun ImageView.loadImage(url: String?) {
     val placeholder = R.drawable.gray_placeholder
@@ -32,4 +39,22 @@ fun getReformatDate(dateInString: String?): String {
             "-"
         }
     } else "-"
+}
+
+fun NavController.safeNavigate(direction: NavDirections) {
+    currentDestination?.getAction(direction.actionId)?.run {
+        navigate(direction)
+    }
+}
+
+fun Activity.showMotionToast(title : String, description : String, motionStyle : MotionToastStyle) {
+    MotionToast.darkColorToast(
+        this,
+        title,
+        description,
+        motionStyle,
+        MotionToast.GRAVITY_TOP,
+        MotionToast.LONG_DURATION,
+        ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular)
+    )
 }
