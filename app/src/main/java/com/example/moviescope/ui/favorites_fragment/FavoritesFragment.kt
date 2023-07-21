@@ -34,16 +34,26 @@ class FavoritesFragment : Fragment() {
     private fun initCollect() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.fetchMediaFromBookmarks.collectLatest {
-                    when (it) {
-                        is Resource.Loading -> {}
-                        is Resource.Success -> {
-                            initFavoritesRV(it.data)
-                        }
+                with(binding) {
+                    viewModel.fetchMediaFromBookmarks.collectLatest {
+                        when (it) {
+                            is Resource.Loading -> {}
+                            is Resource.Success -> {
+                                if (it.data.isEmpty()) {
+                                    emptyFavoritesList.visibility = View.VISIBLE
+                                    favoritesRecyclerView.visibility = View.GONE
+                                } else {
+                                    emptyFavoritesList.visibility = View.GONE
+                                    favoritesRecyclerView.visibility = View.VISIBLE
+                                    initFavoritesRV(it.data)
+                                }
+                            }
 
-                        is Resource.Error -> {}
+                            is Resource.Error -> {}
+                        }
                     }
                 }
+
             }
         }
     }

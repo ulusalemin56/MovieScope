@@ -49,6 +49,8 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/imageCardView"
             app:layout_constraintTop_toTopOf="parent"
