@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="5dp"
+    app:cardBackgroundColor="@color/placeholder_item_image"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true"
+    app:strokeColor="@color/home_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/imageCardView"
+            android:layout_width="150dp"
+            android:layout_height="225dp"
+            app:cardBackgroundColor="@color/placeholder_item_favorites"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/home_background">
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:id="@+id/titleMovieTextView"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/placeholder_item_favorites"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageCardView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/rateIconImageView"
+            android:layout_width="25dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/placeholder_item_favorites"
+            app:layout_constraintStart_toEndOf="@id/imageCardView"
+            app:layout_constraintTop_toBottomOf="@id/titleMovieTextView" />
+
+        <View
+            android:id="@+id/rateTextView"
+            android:layout_width="30dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/placeholder_item_favorites"
+            app:layout_constraintBottom_toBottomOf="@id/rateIconImageView"
+            app:layout_constraintStart_toEndOf="@id/rateIconImageView"
+            app:layout_constraintTop_toTopOf="@id/rateIconImageView" />
+
+        <View
+            android:id="@+id/yearTextView"
+            android:layout_width="60dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/placeholder_item_favorites"
+            app:layout_constraintBottom_toBottomOf="@id/rateIconImageView"
+            app:layout_constraintStart_toEndOf="@id/rateTextView"
+            app:layout_constraintTop_toTopOf="@id/rateIconImageView" />
+
+        <View
+            android:id="@+id/prologTitleTextView"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/placeholder_item_favorites"
+            app:layout_constraintStart_toEndOf="@id/imageCardView"
+            app:layout_constraintTop_toBottomOf="@id/rateIconImageView" />
+
+        <View
+            android:id="@+id/prologTextView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/placeholder_item_favorites"
+            app:layout_constraintBottom_toBottomOf="@id/imageCardView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageCardView"
+            app:layout_constraintTop_toBottomOf="@id/prologTitleTextView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
+
