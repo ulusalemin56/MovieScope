@@ -45,6 +45,7 @@ class HomeFragment : Fragment() {
                                         topRatedMoviesContainerShimmer.visibility = View.VISIBLE
                                         topRatedMoviesContainerShimmer.startShimmer()
                                     }
+
                                     is Resource.Success -> {
                                         topRatedMoviesContainerShimmer.stopShimmer()
                                         topRatedMoviesContainerShimmer.visibility = View.GONE
@@ -65,6 +66,7 @@ class HomeFragment : Fragment() {
                                         nowPlayingMoviesContainerShimmer.visibility = View.VISIBLE
                                         nowPlayingMoviesContainerShimmer.startShimmer()
                                     }
+
                                     is Resource.Success -> {
                                         nowPlayingMoviesContainerShimmer.stopShimmer()
                                         nowPlayingMoviesContainerShimmer.visibility = View.GONE
@@ -74,9 +76,11 @@ class HomeFragment : Fragment() {
                                     }
 
                                     is Resource.Error -> {
-                                        requireActivity().showMotionToast("ERROR",
-                                            it.throwable.localizedMessage ?: "Error",
-                                            MotionToastStyle.ERROR)
+                                        requireActivity().showMotionToast(
+                                            title = "ERROR",
+                                            description = it.throwable.localizedMessage ?: "Error",
+                                            motionStyle = MotionToastStyle.ERROR
+                                        )
                                     }
                                 }
                             }
@@ -89,6 +93,7 @@ class HomeFragment : Fragment() {
                                         popularTvSeriesContainerShimmer.visibility = View.VISIBLE
                                         popularTvSeriesContainerShimmer.startShimmer()
                                     }
+
                                     is Resource.Success -> {
                                         popularTvSeriesContainerShimmer.stopShimmer()
                                         popularTvSeriesContainerShimmer.visibility = View.GONE
@@ -98,9 +103,11 @@ class HomeFragment : Fragment() {
                                     }
 
                                     is Resource.Error -> {
-                                        requireActivity().showMotionToast("ERROR",
+                                        requireActivity().showMotionToast(
+                                            "ERROR",
                                             it.throwable.localizedMessage ?: "Error",
-                                            MotionToastStyle.ERROR)
+                                            MotionToastStyle.ERROR
+                                        )
                                     }
                                 }
                             }
@@ -114,6 +121,7 @@ class HomeFragment : Fragment() {
                                         topRatedTvSeriesContainerShimmer.visibility = View.VISIBLE
                                         topRatedTvSeriesContainerShimmer.startShimmer()
                                     }
+
                                     is Resource.Success -> {
                                         topRatedTvSeriesContainerShimmer.stopShimmer()
                                         topRatedTvSeriesContainerShimmer.visibility = View.GONE
@@ -123,9 +131,11 @@ class HomeFragment : Fragment() {
                                     }
 
                                     is Resource.Error -> {
-                                        requireActivity().showMotionToast("ERROR",
-                                        it.throwable.localizedMessage ?: "Error",
-                                        MotionToastStyle.ERROR)
+                                        requireActivity().showMotionToast(
+                                            "ERROR",
+                                            it.throwable.localizedMessage ?: "Error",
+                                            MotionToastStyle.ERROR
+                                        )
                                     }
                                 }
                             }
