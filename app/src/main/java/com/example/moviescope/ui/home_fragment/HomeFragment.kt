@@ -50,11 +50,18 @@ class HomeFragment : Fragment() {
                                         topRatedMoviesContainerShimmer.stopShimmer()
                                         topRatedMoviesContainerShimmer.visibility = View.GONE
                                         topRatedMoviesTextView.visibility = View.VISIBLE
+                                        seeAllTopRatedMovies.visibility = View.VISIBLE
                                         topRatedMoviesRV.visibility = View.VISIBLE
                                         initTopRatedMoviesRV(it.data)
                                     }
 
-                                    is Resource.Error -> {}
+                                    is Resource.Error -> {
+                                        requireActivity().showMotionToast(
+                                            title = "ERROR",
+                                            description = it.throwable.localizedMessage ?: "Error",
+                                            motionStyle = MotionToastStyle.ERROR
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -71,6 +78,7 @@ class HomeFragment : Fragment() {
                                         nowPlayingMoviesContainerShimmer.stopShimmer()
                                         nowPlayingMoviesContainerShimmer.visibility = View.GONE
                                         nowPlayingMoviesTextView.visibility = View.VISIBLE
+                                        seeAllNowPlayingMovies.visibility = View.VISIBLE
                                         nowPlayingMoviesRecyclerView.visibility = View.VISIBLE
                                         initNowPlayingMoviesRV(it.data)
                                     }
@@ -98,6 +106,7 @@ class HomeFragment : Fragment() {
                                         popularTvSeriesContainerShimmer.stopShimmer()
                                         popularTvSeriesContainerShimmer.visibility = View.GONE
                                         popularTvSeriesTextView.visibility = View.VISIBLE
+                                        seeAllPopularTvSeries.visibility = View.VISIBLE
                                         popularTvSeriesRecyclerView.visibility = View.VISIBLE
                                         initPopularTvSeriesRV(it.data)
                                     }
@@ -126,6 +135,7 @@ class HomeFragment : Fragment() {
                                         topRatedTvSeriesContainerShimmer.stopShimmer()
                                         topRatedTvSeriesContainerShimmer.visibility = View.GONE
                                         topRatedTvSeriesTextView.visibility = View.VISIBLE
+                                        seeAllTopRatedTvSeries.visibility = View.VISIBLE
                                         topRatedTvSeriesRecyclerView.visibility = View.VISIBLE
                                         initTopRatedTvSeriesRV(it.data)
                                     }

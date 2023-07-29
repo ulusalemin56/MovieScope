@@ -81,6 +81,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/seeAllTopRatedMovies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/see_all"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/topRatedMoviesTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <!-- Set of Top Rated Movies RecyclerVİew -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/topRatedMoviesRV"
@@ -100,8 +112,8 @@
                 android:id="@+id/nowPlayingMoviesContainerShimmer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/topRatedMoviesContainerShimmer"
                 app:shimmer_auto_start="false">
 
@@ -120,6 +132,19 @@
                 android:textSize="22sp"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/topRatedMoviesRV" />
+
+            <TextView
+                android:id="@+id/seeAllNowPlayingMovies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/see_all"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/nowPlayingMoviesTextView"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/topRatedMoviesRV" />
 
             <!-- Set of Now Playing Movies RecyclerVİew -->
@@ -161,6 +186,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/nowPlayingMoviesRecyclerView" />
 
+            <TextView
+                android:id="@+id/seeAllPopularTvSeries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/see_all"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/popularTvSeriesTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nowPlayingMoviesRecyclerView" />
+
+
             <!-- Set of Popular TV Series RecyclerVİew -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popularTvSeriesRecyclerView"
@@ -178,8 +217,8 @@
                 android:id="@+id/topRatedTvSeriesContainerShimmer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/popularTvSeriesContainerShimmer"
                 app:shimmer_auto_start="false">
 
@@ -189,7 +228,6 @@
 
             <!-- Set of Top Rated TV Series title. -->
             <TextView
-                android:visibility="invisible"
                 android:id="@+id/topRatedTvSeriesTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -197,17 +235,31 @@
                 android:text="@string/top_boxoffice"
                 android:textColor="@color/white"
                 android:textSize="22sp"
+                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/popularTvSeriesRecyclerView" />
+
+            <TextView
+                android:id="@+id/seeAllTopRatedTvSeries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/see_all"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/topRatedTvSeriesTextView"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/popularTvSeriesRecyclerView" />
 
             <!-- Set of Top Rated TV Series RecyclerVİew -->
             <androidx.recyclerview.widget.RecyclerView
-                android:visibility="invisible"
                 android:id="@+id/topRatedTvSeriesRecyclerView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
+                android:visibility="invisible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/topRatedTvSeriesTextView"
