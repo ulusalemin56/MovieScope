@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.moviescope.databinding.FragmentHomeBinding
 import com.example.moviescope.domain.model.MovieUI
 import com.example.moviescope.util.Resource
+import com.example.moviescope.util.enums.MediaTypeEnum
 import com.example.moviescope.util.safeNavigate
 import com.example.moviescope.util.showMotionToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,9 +31,37 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater)
         initCollect()
+        initUI()
         return binding.root
     }
 
+    private fun initUI() {
+        with(binding) {
+            seeAllTopRatedMovies.setOnClickListener {
+                val action =
+                    HomeFragmentDirections.actionHomeFragmentToSeeAllFragment(MediaTypeEnum.TOP_RATED_MOVIES)
+                findNavController().navigate(action)
+            }
+
+            seeAllNowPlayingMovies.setOnClickListener {
+                val action =
+                    HomeFragmentDirections.actionHomeFragmentToSeeAllFragment(MediaTypeEnum.NOW_PLAYING_MOVIES)
+                findNavController().navigate(action)
+            }
+
+            seeAllPopularTvSeries.setOnClickListener {
+                val action =
+                    HomeFragmentDirections.actionHomeFragmentToSeeAllFragment(MediaTypeEnum.POPULAR_TV_SERIES)
+                findNavController().navigate(action)
+            }
+
+            seeAllTopRatedTvSeries.setOnClickListener {
+                val action =
+                    HomeFragmentDirections.actionHomeFragmentToSeeAllFragment(MediaTypeEnum.TOP_RATED_TV_SERIES)
+                findNavController().navigate(action)
+            }
+        }
+    }
     private fun initCollect() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
