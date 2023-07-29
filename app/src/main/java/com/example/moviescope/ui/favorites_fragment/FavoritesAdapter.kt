@@ -34,7 +34,7 @@ class FavoritesAdapter(
 
         fun bind(bookmark: BookmarkEntity) {
             with(binding) {
-                imageView.loadImage(Constants.BASE_URL_IMAGE.plus(bookmark.posterPath))
+                imageView.loadImage(Constants.BASE_URL_IMAGE.plus(bookmark.posterPath ?: bookmark.backdropPath))
                 titleMovieTextView.text = bookmark.title
                 rateTextView.text = bookmark.voteAverage.toString()
                 yearTextView.text = getReformatDate(bookmark.releaseDate)

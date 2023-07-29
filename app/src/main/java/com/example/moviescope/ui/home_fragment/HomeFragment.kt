@@ -142,9 +142,9 @@ class HomeFragment : Fragment() {
 
                                     is Resource.Error -> {
                                         requireActivity().showMotionToast(
-                                            "ERROR",
-                                            it.throwable.localizedMessage ?: "Error",
-                                            MotionToastStyle.ERROR
+                                            title = "ERROR",
+                                            description = it.throwable.localizedMessage ?: "Error",
+                                            motionStyle = MotionToastStyle.ERROR
                                         )
                                     }
                                 }
@@ -171,9 +171,9 @@ class HomeFragment : Fragment() {
 
                                     is Resource.Error -> {
                                         requireActivity().showMotionToast(
-                                            "ERROR",
-                                            it.throwable.localizedMessage ?: "Error",
-                                            MotionToastStyle.ERROR
+                                            title = "ERROR",
+                                            description = it.throwable.localizedMessage ?: "Error",
+                                            motionStyle = MotionToastStyle.ERROR
                                         )
                                     }
                                 }

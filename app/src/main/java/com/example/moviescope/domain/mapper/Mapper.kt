@@ -22,7 +22,18 @@ fun List<Movie>.movieToMovieUI(mediaTypeEnum: MediaTypeEnum): List<MovieUI> {
     }
 }
 
-fun List<Series>.seriesToMovieUI(mediaTypeEnum: MediaTypeEnum) : List<MovieUI> {
+fun Movie.toMovieUI(mediaTypeEnum: MediaTypeEnum) = MovieUI(
+    backdropPath = this.backdropPath,
+    id = this.id,
+    overview = this.overview,
+    posterPath = this.posterPath,
+    releaseDate = this.releaseDate,
+    title = this.title,
+    voteAverage = this.voteAverage,
+    mediaTypeEnum = mediaTypeEnum
+)
+
+fun List<Series>.seriesToMovieUI(mediaTypeEnum: MediaTypeEnum): List<MovieUI> {
     return this.map {
         MovieUI(
             backdropPath = it.backdropPath,
@@ -37,7 +48,18 @@ fun List<Series>.seriesToMovieUI(mediaTypeEnum: MediaTypeEnum) : List<MovieUI> {
     }
 }
 
-fun List<MovieUI>.toMovieResponseEntityList() : List<MovieResponseEntity> {
+fun Series.toMovieUI(mediaTypeEnum: MediaTypeEnum) = MovieUI(
+    backdropPath = this.backdropPath,
+    id = this.id,
+    overview = this.overview,
+    posterPath = this.posterPath,
+    releaseDate = this.firstAirDate,
+    title = this.name,
+    voteAverage = this.voteAverage,
+    mediaTypeEnum = mediaTypeEnum
+)
+
+fun List<MovieUI>.toMovieResponseEntityList(): List<MovieResponseEntity> {
     return this.map {
         MovieResponseEntity(
             id = it.id,
@@ -52,7 +74,7 @@ fun List<MovieUI>.toMovieResponseEntityList() : List<MovieResponseEntity> {
     }
 }
 
-fun List<MovieResponseEntity>.toMovieUI() : List<MovieUI> {
+fun List<MovieResponseEntity>.toMovieUI(): List<MovieUI> {
     return this.map {
         MovieUI(
             id = it.id,
@@ -67,7 +89,7 @@ fun List<MovieResponseEntity>.toMovieUI() : List<MovieUI> {
     }
 }
 
-fun MovieUI.toBookmarkEntity() : BookmarkEntity {
+fun MovieUI.toBookmarkEntity(): BookmarkEntity {
     return BookmarkEntity(
         id = id,
         backdropPath = backdropPath,
@@ -80,7 +102,7 @@ fun MovieUI.toBookmarkEntity() : BookmarkEntity {
     )
 }
 
-fun BookmarkEntity.toMovieUI() : MovieUI {
+fun BookmarkEntity.toMovieUI(): MovieUI {
     return MovieUI(
         id = id,
         backdropPath = backdropPath,

@@ -107,4 +107,7 @@ dependencies {
     // Motion Toast
     implementation 'com.github.Spikeysanju:MotionToast:1.4'
 
+    // Paging 3
+    implementation 'androidx.paging:paging-runtime-ktx:3.2.0'
+
 }
