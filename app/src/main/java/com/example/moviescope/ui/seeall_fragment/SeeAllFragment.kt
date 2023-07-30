@@ -12,6 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
+import com.example.moviescope.R
 import com.example.moviescope.databinding.FragmentSeeAllBinding
 import com.example.moviescope.domain.model.MovieUI
 import com.example.moviescope.util.enums.MediaTypeEnum
@@ -33,10 +34,16 @@ class SeeAllFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSeeAllBinding.inflate(inflater, container, false)
+        initUI()
         initCollect()
         return binding.root
     }
 
+    private fun initUI() {
+        binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
     private fun initCollect() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -45,6 +52,7 @@ class SeeAllFragment : Fragment() {
                         seeAllRV.adapter = adapter
                         when (args.mediaType) {
                             MediaTypeEnum.TOP_RATED_MOVIES -> {
+                                pageTitle.text = resources.getString(R.string.most_pop_movies)
                                 seeAllTopRatedMovies.collectLatest { pagingData ->
                                     adapter.submitData(lifecycle, pagingData)
                                     adapter.loadStateFlow.collectLatest { loadState ->
@@ -75,6 +83,7 @@ class SeeAllFragment : Fragment() {
                             }
 
                             MediaTypeEnum.NOW_PLAYING_MOVIES -> {
+                                pageTitle.text = resources.getString(R.string.top_rated_250)
                                 seeAllNowPlayingMovies.collectLatest { pagingData ->
                                     adapter.submitData(lifecycle, pagingData)
                                     adapter.loadStateFlow.collectLatest { loadState ->
@@ -105,6 +114,7 @@ class SeeAllFragment : Fragment() {
                             }
 
                             MediaTypeEnum.POPULAR_TV_SERIES -> {
+                                pageTitle.text = resources.getString(R.string.most_pop_series)
                                 seeAllPopularTvSeries.collectLatest { pagingData ->
                                     adapter.submitData(lifecycle, pagingData)
                                     adapter.loadStateFlow.collectLatest { loadState ->
@@ -135,6 +145,7 @@ class SeeAllFragment : Fragment() {
                             }
 
                             MediaTypeEnum.TOP_RATED_TV_SERIES -> {
+                                pageTitle.text = resources.getString(R.string.top_boxoffice)
                                 seeAllTopRatedTvSeries.collectLatest { pagingData ->
                                     adapter.submitData(lifecycle, pagingData)
                                     adapter.loadStateFlow.collectLatest { loadState ->
