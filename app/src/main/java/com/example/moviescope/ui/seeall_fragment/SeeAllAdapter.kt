@@ -11,7 +11,7 @@ import com.example.moviescope.util.Constants
 import com.example.moviescope.util.loadImage
 
 class SeeAllAdapter (
-
+    private val onClick: (MovieUI) -> Unit
 ) : PagingDataAdapter<MovieUI, SeeAllAdapter.ItemViewHolder>(Comparator) {
 
     override fun onCreateViewHolder(
@@ -32,6 +32,9 @@ class SeeAllAdapter (
     inner class ItemViewHolder(private val binding: ItemSeeAllBinding) : ViewHolder(binding.root) {
         fun bind(movieUI: MovieUI) {
             binding.imageView.loadImage(Constants.BASE_URL_IMAGE.plus(movieUI.posterPath ?: movieUI.backdropPath))
+            binding.cardView.setOnClickListener {
+                onClick(movieUI)
+            }
         }
     }
 

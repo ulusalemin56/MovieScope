@@ -9,9 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import com.example.moviescope.databinding.FragmentSeeAllBinding
+import com.example.moviescope.domain.model.MovieUI
 import com.example.moviescope.util.enums.MediaTypeEnum
 import com.example.moviescope.util.showMotionToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +26,7 @@ class SeeAllFragment : Fragment() {
     private lateinit var binding: FragmentSeeAllBinding
     private val viewModel: SeeAllViewModel by viewModels()
     private val args: SeeAllFragmentArgs by navArgs()
-    private val adapter = SeeAllAdapter()
+    private val adapter : SeeAllAdapter by lazy { SeeAllAdapter(::onClick) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -167,4 +169,8 @@ class SeeAllFragment : Fragment() {
         }
     }
 
+    private fun onClick(movieUI: MovieUI) {
+        val action = SeeAllFragmentDirections.actionSeeAllFragmentToDetailFragment2(movieUI)
+        findNavController().navigate(action)
+    }
 }
