@@ -37,6 +37,11 @@ class HomeFragment : Fragment() {
 
     private fun initUI() {
         with(binding) {
+            searchIconButton.setOnClickListener {
+                val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+                findNavController().navigate(action)
+            }
+
             seeAllTopRatedMovies.setOnClickListener {
                 val action =
                     HomeFragmentDirections.actionHomeFragmentToSeeAllFragment(MediaTypeEnum.TOP_RATED_MOVIES)
@@ -62,6 +67,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
     private fun initCollect() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
