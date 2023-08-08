@@ -16,5 +16,7 @@ object Constants {
         const val TOP_RATED_TV_SERIES = "tv/top_rated"
         const val DISCOVER_MOVIES = "discover/movie"
         const val DISCOVER_TV_SERIES = "discover/tv"
+        const val SEARCH_MOVIE = "search/movie"
+        const val SEARCH_TV_SERIE = "search/tv"
     }
 }

@@ -11,7 +11,7 @@ import com.example.moviescope.util.Constants
 import com.example.moviescope.util.loadImage
 
 class SearchAdapter(
-
+    private val onClick : (MovieUI) -> Unit
 ) : PagingDataAdapter<MovieUI, SearchAdapter.ItemMoviesViewHolder>(Comparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemMoviesViewHolder {
@@ -34,6 +34,9 @@ class SearchAdapter(
                     movieUI.posterPath ?: movieUI.backdropPath
                 )
             )
+            binding.cardView.setOnClickListener {
+                onClick(movieUI)
+            }
         }
     }
 

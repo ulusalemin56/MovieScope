@@ -94,4 +94,25 @@ class RemoteDataSourceImpl @Inject constructor(
             }
         ).flow
     }
+
+    override fun getSearchMovie(query: String): Flow<PagingData<Movie>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE
+            ),
+            pagingSourceFactory = {
+                MoviePagingSource(movieScopeService, MovieTypeEnum.SEARCH_MOVIE, query)
+            }
+        ).flow
+    }
+    override fun getSearchTvSerie(query: String): Flow<PagingData<Series>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE
+            ),
+            pagingSourceFactory = {
+                SeriesPagingSource(movieScopeService, SerieTypeEnum.SEARCH_SERIE,query)
+            }
+        ).flow
+    }
 }

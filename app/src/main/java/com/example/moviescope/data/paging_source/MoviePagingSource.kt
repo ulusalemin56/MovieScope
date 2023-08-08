@@ -9,7 +9,8 @@ import com.example.moviescope.util.enums.MovieTypeEnum
 
 class MoviePagingSource(
     private val movieScopeService: MovieScopeService,
-    private val mediaType: MovieTypeEnum
+    private val mediaType: MovieTypeEnum,
+    private val query: String = ""
 ) : PagingSource<Int, Movie>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
@@ -24,8 +25,13 @@ class MoviePagingSource(
                 MovieTypeEnum.NOW_PLAYING_MOVIES -> {
                     movieScopeService.getNowPlayingMovies(page).results
                 }
+
                 MovieTypeEnum.DISCOVER_MOVIES -> {
                     movieScopeService.getDiscoverMovies(page).results
+                }
+
+                MovieTypeEnum.SEARCH_MOVIE -> {
+                    movieScopeService.getSearchMovie(query, page).results
                 }
             }
 

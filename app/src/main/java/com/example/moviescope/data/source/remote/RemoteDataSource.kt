@@ -19,4 +19,6 @@ interface RemoteDataSource {
     fun getSeeAllTopRatedTvSeries() : Flow<PagingData<Series>>
     fun getDiscoverMovies() : Flow<PagingData<Movie>>
     fun getDiscoverTvSeries() : Flow<PagingData<Series>>
+    fun getSearchMovie(query : String) : Flow<PagingData<Movie>>
+    fun getSearchTvSerie(query : String) : Flow<PagingData<Series>>
 }

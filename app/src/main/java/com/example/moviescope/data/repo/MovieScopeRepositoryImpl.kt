@@ -172,6 +172,20 @@ class MovieScopeRepositoryImpl @Inject constructor(
             }
         }
 
+    override fun getSearchMovie(query: String): Flow<PagingData<MovieUI>> = remoteDataSource
+        .getSearchMovie(query).map { pagingData ->
+            pagingData.map {
+                it.toMovieUI(MediaTypeEnum.SEARCH_MOVIE)
+            }
+        }
+
+    override fun getSearchTvSerie(query: String): Flow<PagingData<MovieUI>> = remoteDataSource
+        .getSearchTvSerie(query).map {pagingData ->
+            pagingData.map {
+                it.toMovieUI(MediaTypeEnum.SEARCH_SERIE)
+            }
+        }
+
     private suspend fun insertDataToDataBase(data: List<MovieUI>, mediaTypeEnum: MediaTypeEnum) {
         localDataSource.clearDataMovieResponseWithType(mediaTypeEnum)
         localDataSource.insertMovieResponse(data.toMovieResponseEntityList())

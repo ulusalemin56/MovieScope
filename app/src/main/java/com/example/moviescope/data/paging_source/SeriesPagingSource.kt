@@ -9,7 +9,8 @@ import com.example.moviescope.util.enums.SerieTypeEnum
 
 class SeriesPagingSource(
     private val movieScopeService: MovieScopeService,
-    private val mediaType: SerieTypeEnum
+    private val mediaType: SerieTypeEnum,
+    private val query: String = ""
 ) : PagingSource<Int, Series>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Series> {
@@ -27,6 +28,10 @@ class SeriesPagingSource(
 
                 SerieTypeEnum.DISCOVER_TV_SERIES -> {
                     movieScopeService.getDiscoverTvSeries(page).results
+                }
+
+                SerieTypeEnum.SEARCH_SERIE -> {
+                    movieScopeService.getSearchTvSerie(query, page).results
                 }
             }
 

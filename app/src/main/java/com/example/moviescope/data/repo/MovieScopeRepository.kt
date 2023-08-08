@@ -22,4 +22,6 @@ interface MovieScopeRepository {
     fun getSeeAllTopRatedTvSeries() : Flow<PagingData<MovieUI>>
     fun getDiscoverMovies() : Flow<PagingData<MovieUI>>
     fun getDiscoverTvSeries() : Flow<PagingData<MovieUI>>
+    fun getSearchMovie(query : String) : Flow<PagingData<MovieUI>>
+    fun getSearchTvSerie(query : String) : Flow<PagingData<MovieUI>>
 }
