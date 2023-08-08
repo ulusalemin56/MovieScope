@@ -22,10 +22,13 @@ class RemoteDataSourceImpl @Inject constructor(
     override suspend fun getTopRatedMovies(): MoviesResponse = movieScopeService.getTopRatedMovies()
     override suspend fun getNowPlayingMovies(): MoviesResponse =
         movieScopeService.getNowPlayingMovies()
+
     override suspend fun getPopularTvSeries(): SeriesResponse =
         movieScopeService.getPopularTvSeries()
+
     override suspend fun getTopRatedTvSeries(): SeriesResponse =
         movieScopeService.getTopRatedTvSeries()
+
     override fun getSeeAllTopRatedMovies(): Flow<PagingData<Movie>> {
         return Pager(
             config = PagingConfig(
@@ -36,6 +39,7 @@ class RemoteDataSourceImpl @Inject constructor(
             }
         ).flow
     }
+
     override fun getSeeAllNowPlayingMovies(): Flow<PagingData<Movie>> {
         return Pager(
             config = PagingConfig(
@@ -46,6 +50,7 @@ class RemoteDataSourceImpl @Inject constructor(
             }
         ).flow
     }
+
     override fun getSeeAllPopularTvSeries(): Flow<PagingData<Series>> {
         return Pager(
             config = PagingConfig(
@@ -56,6 +61,7 @@ class RemoteDataSourceImpl @Inject constructor(
             }
         ).flow
     }
+
     override fun getSeeAllTopRatedTvSeries(): Flow<PagingData<Series>> {
         return Pager(
             config = PagingConfig(
@@ -63,6 +69,28 @@ class RemoteDataSourceImpl @Inject constructor(
             ),
             pagingSourceFactory = {
                 SeriesPagingSource(movieScopeService, SerieTypeEnum.TOP_RATED_TV_SERIES)
+            }
+        ).flow
+    }
+
+    override fun getDiscoverMovies(): Flow<PagingData<Movie>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE
+            ),
+            pagingSourceFactory = {
+                MoviePagingSource(movieScopeService, MovieTypeEnum.DISCOVER_MOVIES)
+            }
+        ).flow
+    }
+
+    override fun getDiscoverTvSeries(): Flow<PagingData<Series>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE
+            ),
+            pagingSourceFactory = {
+                SeriesPagingSource(movieScopeService, SerieTypeEnum.DISCOVER_TV_SERIES)
             }
         ).flow
     }

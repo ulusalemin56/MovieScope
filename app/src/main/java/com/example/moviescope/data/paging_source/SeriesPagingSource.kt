@@ -24,6 +24,10 @@ class SeriesPagingSource(
                 SerieTypeEnum.TOP_RATED_TV_SERIES -> {
                     movieScopeService.getTopRatedTvSeries(page).results
                 }
+
+                SerieTypeEnum.DISCOVER_TV_SERIES -> {
+                    movieScopeService.getDiscoverTvSeries(page).results
+                }
             }
 
             LoadResult.Page(

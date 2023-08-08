@@ -27,7 +27,7 @@ class SeeAllFragment : Fragment() {
     private lateinit var binding: FragmentSeeAllBinding
     private val viewModel: SeeAllViewModel by viewModels()
     private val args: SeeAllFragmentArgs by navArgs()
-    private val adapter : SeeAllAdapter by lazy { SeeAllAdapter(::onClick) }
+    private val adapter: SeeAllAdapter by lazy { SeeAllAdapter(::onClick) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +44,7 @@ class SeeAllFragment : Fragment() {
             findNavController().popBackStack()
         }
     }
+
     private fun initCollect() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -165,13 +166,22 @@ class SeeAllFragment : Fragment() {
                                             is LoadState.Error -> {
                                                 requireActivity().showMotionToast(
                                                     title = "ERROR",
-                                                    description = (loadState.refresh as LoadState.Error).error.localizedMessage ?: "Error",
+                                                    description = (loadState.refresh as LoadState.Error).error.localizedMessage
+                                                        ?: "Error",
                                                     motionStyle = MotionToastStyle.ERROR
                                                 )
                                             }
                                         }
                                     }
                                 }
+                            }
+
+                            else -> {
+                                requireActivity().showMotionToast(
+                                    title = "ERROR",
+                                    description = "Error",
+                                    motionStyle = MotionToastStyle.ERROR
+                                )
                             }
                         }
                     }

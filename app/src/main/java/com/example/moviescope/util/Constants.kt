@@ -14,5 +14,7 @@ object Constants {
         const val NOW_PLAYING_MOVIES = "movie/now_playing"
         const val POPULAR_TV_SERIES = "tv/popular"
         const val TOP_RATED_TV_SERIES = "tv/top_rated"
+        const val DISCOVER_MOVIES = "discover/movie"
+        const val DISCOVER_TV_SERIES = "discover/tv"
     }
 }

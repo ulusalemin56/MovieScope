@@ -24,6 +24,9 @@ class MoviePagingSource(
                 MovieTypeEnum.NOW_PLAYING_MOVIES -> {
                     movieScopeService.getNowPlayingMovies(page).results
                 }
+                MovieTypeEnum.DISCOVER_MOVIES -> {
+                    movieScopeService.getDiscoverMovies(page).results
+                }
             }
 
             LoadResult.Page(

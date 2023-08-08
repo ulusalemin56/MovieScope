@@ -15,4 +15,8 @@ interface MovieScopeService {
     suspend fun getPopularTvSeries(@Query("page") page : Int = 1): SeriesResponse
     @GET(Constants.EndPoints.TOP_RATED_TV_SERIES)
     suspend fun getTopRatedTvSeries(@Query("page") page : Int = 1): SeriesResponse
+    @GET(Constants.EndPoints.DISCOVER_MOVIES)
+    suspend fun getDiscoverMovies(@Query("page") page: Int = 1) : MoviesResponse
+    @GET(Constants.EndPoints.DISCOVER_TV_SERIES)
+    suspend fun getDiscoverTvSeries(@Query("page") page: Int = 1) : SeriesResponse
 }
