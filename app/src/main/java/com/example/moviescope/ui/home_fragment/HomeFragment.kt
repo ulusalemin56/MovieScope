@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.moviescope.databinding.FragmentHomeBinding
 import com.example.moviescope.domain.model.MovieUI
 import com.example.moviescope.util.Resource
+import com.example.moviescope.util.enums.MediaTypeEnum
 import com.example.moviescope.util.safeNavigate
 import com.example.moviescope.util.showMotionToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +31,41 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater)
         initCollect()
+        initUI()
         return binding.root
+    }
+
+    private fun initUI() {
+        with(binding) {
+            searchIconButton.setOnClickListener {
+                val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+                findNavController().navigate(action)
+            }
+
+            seeAllTopRatedMovies.setOnClickListener {
+                val action =
+                    HomeFragmentDirections.actionHomeFragmentToSeeAllFragment(MediaTypeEnum.TOP_RATED_MOVIES)
+                findNavController().navigate(action)
+            }
+
+            seeAllNowPlayingMovies.setOnClickListener {
+                val action =
+                    HomeFragmentDirections.actionHomeFragmentToSeeAllFragment(MediaTypeEnum.NOW_PLAYING_MOVIES)
+                findNavController().navigate(action)
+            }
+
+            seeAllPopularTvSeries.setOnClickListener {
+                val action =
+                    HomeFragmentDirections.actionHomeFragmentToSeeAllFragment(MediaTypeEnum.POPULAR_TV_SERIES)
+                findNavController().navigate(action)
+            }
+
+            seeAllTopRatedTvSeries.setOnClickListener {
+                val action =
+                    HomeFragmentDirections.actionHomeFragmentToSeeAllFragment(MediaTypeEnum.TOP_RATED_TV_SERIES)
+                findNavController().navigate(action)
+            }
+        }
     }
 
     private fun initCollect() {
@@ -45,15 +80,23 @@ class HomeFragment : Fragment() {
                                         topRatedMoviesContainerShimmer.visibility = View.VISIBLE
                                         topRatedMoviesContainerShimmer.startShimmer()
                                     }
+
                                     is Resource.Success -> {
                                         topRatedMoviesContainerShimmer.stopShimmer()
                                         topRatedMoviesContainerShimmer.visibility = View.GONE
                                         topRatedMoviesTextView.visibility = View.VISIBLE
+                                        seeAllTopRatedMovies.visibility = View.VISIBLE
                                         topRatedMoviesRV.visibility = View.VISIBLE
                                         initTopRatedMoviesRV(it.data)
                                     }
 
-                                    is Resource.Error -> {}
+                                    is Resource.Error -> {
+                                        requireActivity().showMotionToast(
+                                            title = "ERROR",
+                                            description = it.throwable.localizedMessage ?: "Error",
+                                            motionStyle = MotionToastStyle.ERROR
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -65,18 +108,22 @@ class HomeFragment : Fragment() {
                                         nowPlayingMoviesContainerShimmer.visibility = View.VISIBLE
                                         nowPlayingMoviesContainerShimmer.startShimmer()
                                     }
+
                                     is Resource.Success -> {
                                         nowPlayingMoviesContainerShimmer.stopShimmer()
                                         nowPlayingMoviesContainerShimmer.visibility = View.GONE
                                         nowPlayingMoviesTextView.visibility = View.VISIBLE
+                                        seeAllNowPlayingMovies.visibility = View.VISIBLE
                                         nowPlayingMoviesRecyclerView.visibility = View.VISIBLE
                                         initNowPlayingMoviesRV(it.data)
                                     }
 
                                     is Resource.Error -> {
-                                        requireActivity().showMotionToast("ERROR",
-                                            it.throwable.localizedMessage ?: "Error",
-                                            MotionToastStyle.ERROR)
+                                        requireActivity().showMotionToast(
+                                            title = "ERROR",
+                                            description = it.throwable.localizedMessage ?: "Error",
+                                            motionStyle = MotionToastStyle.ERROR
+                                        )
                                     }
                                 }
                             }
@@ -89,18 +136,22 @@ class HomeFragment : Fragment() {
                                         popularTvSeriesContainerShimmer.visibility = View.VISIBLE
                                         popularTvSeriesContainerShimmer.startShimmer()
                                     }
+
                                     is Resource.Success -> {
                                         popularTvSeriesContainerShimmer.stopShimmer()
                                         popularTvSeriesContainerShimmer.visibility = View.GONE
                                         popularTvSeriesTextView.visibility = View.VISIBLE
+                                        seeAllPopularTvSeries.visibility = View.VISIBLE
                                         popularTvSeriesRecyclerView.visibility = View.VISIBLE
                                         initPopularTvSeriesRV(it.data)
                                     }
 
                                     is Resource.Error -> {
-                                        requireActivity().showMotionToast("ERROR",
-                                            it.throwable.localizedMessage ?: "Error",
-                                            MotionToastStyle.ERROR)
+                                        requireActivity().showMotionToast(
+                                            title = "ERROR",
+                                            description = it.throwable.localizedMessage ?: "Error",
+                                            motionStyle = MotionToastStyle.ERROR
+                                        )
                                     }
                                 }
                             }
@@ -114,18 +165,22 @@ class HomeFragment : Fragment() {
                                         topRatedTvSeriesContainerShimmer.visibility = View.VISIBLE
                                         topRatedTvSeriesContainerShimmer.startShimmer()
                                     }
+
                                     is Resource.Success -> {
                                         topRatedTvSeriesContainerShimmer.stopShimmer()
                                         topRatedTvSeriesContainerShimmer.visibility = View.GONE
                                         topRatedTvSeriesTextView.visibility = View.VISIBLE
+                                        seeAllTopRatedTvSeries.visibility = View.VISIBLE
                                         topRatedTvSeriesRecyclerView.visibility = View.VISIBLE
                                         initTopRatedTvSeriesRV(it.data)
                                     }
 
                                     is Resource.Error -> {
-                                        requireActivity().showMotionToast("ERROR",
-                                        it.throwable.localizedMessage ?: "Error",
-                                        MotionToastStyle.ERROR)
+                                        requireActivity().showMotionToast(
+                                            title = "ERROR",
+                                            description = it.throwable.localizedMessage ?: "Error",
+                                            motionStyle = MotionToastStyle.ERROR
+                                        )
                                     }
                                 }
                             }

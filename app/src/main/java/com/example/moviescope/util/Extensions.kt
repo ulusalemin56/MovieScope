@@ -2,11 +2,12 @@ package com.example.moviescope.util
 
 import android.app.Activity
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.moviescope.R
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
@@ -16,15 +17,23 @@ import java.util.Locale
 
 
 fun ImageView.loadImage(url: String?) {
-    val placeholder = R.drawable.gray_placeholder
+    val errorPlaceHolder = R.drawable.gray_placeholder
+    val progressColor = ContextCompat.getColor(this.context, R.color.white)
+    val circularProgress = CircularProgressDrawable(this.context).apply {
+        strokeWidth = 10f
+        centerRadius = 100f
+        setColorSchemeColors(progressColor)
+        start()
+    }
+
     url?.let {
         Glide.with(this.context)
             .load(url)
-            .apply(RequestOptions())
-            .error(placeholder)
+            .placeholder(circularProgress)
+            .error(errorPlaceHolder)
             .into(this)
     } ?: kotlin.run {
-        this.setImageResource(placeholder)
+        this.setImageResource(errorPlaceHolder)
     }
 }
 

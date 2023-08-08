@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.moviescope.data.model.local.BookmarkEntity
 import com.example.moviescope.databinding.ItemFavoritesBinding
 import com.example.moviescope.util.Constants
+import com.example.moviescope.util.getReformatDate
 import com.example.moviescope.util.loadImage
 
 class FavoritesAdapter(
@@ -33,10 +34,10 @@ class FavoritesAdapter(
 
         fun bind(bookmark: BookmarkEntity) {
             with(binding) {
-                imageView.loadImage(Constants.BASE_URL_IMAGE.plus(bookmark.posterPath))
+                imageView.loadImage(Constants.BASE_URL_IMAGE.plus(bookmark.posterPath ?: bookmark.backdropPath))
                 titleMovieTextView.text = bookmark.title
                 rateTextView.text = bookmark.voteAverage.toString()
-                yearTextView.text = bookmark.releaseDate
+                yearTextView.text = getReformatDate(bookmark.releaseDate)
                 prologTextView.text = bookmark.overview
 
                 itemCardView.setOnClickListener {

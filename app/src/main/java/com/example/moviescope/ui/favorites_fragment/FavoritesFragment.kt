@@ -14,9 +14,11 @@ import com.example.moviescope.data.model.local.BookmarkEntity
 import com.example.moviescope.databinding.FragmentFavoritesBinding
 import com.example.moviescope.domain.mapper.toMovieUI
 import com.example.moviescope.util.Resource
+import com.example.moviescope.util.showMotionToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import www.sanju.motiontoast.MotionToastStyle
 
 @AndroidEntryPoint
 class FavoritesFragment : Fragment() {
@@ -34,14 +36,37 @@ class FavoritesFragment : Fragment() {
     private fun initCollect() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.fetchMediaFromBookmarks.collectLatest {
-                    when (it) {
-                        is Resource.Loading -> {}
-                        is Resource.Success -> {
-                            initFavoritesRV(it.data)
-                        }
+                with(binding) {
+                    viewModel.fetchMediaFromBookmarks.collectLatest {
+                        when (it) {
+                            is Resource.Loading -> {
+                                favoritesContainerShimmer.visibility = View.VISIBLE
+                                favoritesContainerShimmer.startShimmer()
+                                favoritesRecyclerView.visibility = View.GONE
+                            }
 
-                        is Resource.Error -> {}
+                            is Resource.Success -> {
+                                favoritesContainerShimmer.stopShimmer()
+                                favoritesContainerShimmer.visibility = View.GONE
+                                favoritesRecyclerView.visibility = View.VISIBLE
+                                if (it.data.isEmpty()) {
+                                    emptyFavoritesList.visibility = View.VISIBLE
+                                    favoritesRecyclerView.visibility = View.GONE
+                                } else {
+                                    emptyFavoritesList.visibility = View.GONE
+                                    favoritesRecyclerView.visibility = View.VISIBLE
+                                    initFavoritesRV(it.data)
+                                }
+                            }
+
+                            is Resource.Error -> {
+                                requireActivity().showMotionToast(
+                                    title = "ERROR",
+                                    description = it.throwable.localizedMessage ?: "Error",
+                                    motionStyle = MotionToastStyle.ERROR
+                                )
+                            }
+                        }
                     }
                 }
             }

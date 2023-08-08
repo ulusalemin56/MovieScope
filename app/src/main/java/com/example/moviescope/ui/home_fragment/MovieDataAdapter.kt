@@ -35,7 +35,7 @@ class MovieDataAdapter(
     ) : ViewHolder(binding.root) {
         fun bind(movie: MovieUI) {
             with(binding) {
-                imageView.loadImage(Constants.BASE_URL_IMAGE.plus(movie.posterPath))
+                imageView.loadImage(Constants.BASE_URL_IMAGE.plus(movie.posterPath ?: movie.backdropPath))
                 cardView.setOnClickListener {
                     onClickMovie(adapterPosition)
                 }

@@ -10,4 +10,11 @@
     <string name="fav">FAV</string>
     <string name="prolog">Prolog</string>
     <string name="overview">Overview</string>
+    <string name="your_favorites_list_is_empty">Your Favorites List is Empty</string>
+    <string name="see_all">See all</string>
+    <string name="top_rated_movies">Top Rated Movies</string>
+    <string name="now_playing_movies">Now Playing Movies</string>
+    <string name="edittext_hint">Search</string>
+    <string name="movies">Movies</string>
+    <string name="tv_series">TV Series</string>
 </resources>
