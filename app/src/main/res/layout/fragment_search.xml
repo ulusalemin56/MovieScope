@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="10dp"
         android:src="@drawable/arrow_left"
         app:layout_constraintBottom_toBottomOf="@id/searchEditText"
@@ -35,5 +35,56 @@
         app:layout_constraintStart_toEndOf="@id/backButton"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <RadioGroup
+        android:id="@+id/filterRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchEditText">
+
+        <RadioButton
+            android:id="@+id/moviesRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/radio_button_selector"
+            android:button="@android:color/transparent"
+            android:checked="true"
+            android:gravity="center"
+            android:text="@string/movies"
+            android:textColor="@drawable/radio_button_text_color"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/seriesRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/radio_button_selector"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="@string/tv_series"
+            android:textColor="@drawable/radio_button_text_color"
+            android:textSize="20sp" />
+
+    </RadioGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/seeAllRV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="10dp"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filterRadioGroup"
+        app:spanCount="2"
+        tools:listitem="@layout/item_see_all" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

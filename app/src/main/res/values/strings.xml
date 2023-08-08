@@ -15,4 +15,6 @@
     <string name="top_rated_movies">Top Rated Movies</string>
     <string name="now_playing_movies">Now Playing Movies</string>
     <string name="edittext_hint">Search</string>
+    <string name="movies">Movies</string>
+    <string name="tv_series">TV Series</string>
 </resources>
