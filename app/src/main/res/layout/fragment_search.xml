@@ -74,13 +74,36 @@
 
     </RadioGroup>
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/searchContainerShimmer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filterRadioGroup">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/placeholder_item_see_all" />
+
+            <include layout="@layout/placeholder_item_see_all" />
+
+            <include layout="@layout/placeholder_item_see_all" />
+
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchRV"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:paddingHorizontal="10dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filterRadioGroup"
