@@ -33,13 +33,13 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun getSearchMovies(query : String) = viewModelScope.launch {
+    fun getSearchMovies(query: String) = viewModelScope.launch {
         movieScopeRepository.getSearchMovie(query).cachedIn(viewModelScope).collectLatest {
             _discoverData.emit(it)
         }
     }
 
-    fun getSearchTvSeries(query : String) = viewModelScope.launch {
+    fun getSearchTvSeries(query: String) = viewModelScope.launch {
         movieScopeRepository.getSearchTvSerie(query).cachedIn(viewModelScope).collectLatest {
             _discoverData.emit(it)
         }

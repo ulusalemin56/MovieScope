@@ -11,14 +11,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import com.example.moviescope.R
 import com.example.moviescope.databinding.FragmentSearchBinding
 import com.example.moviescope.domain.model.MovieUI
 import com.example.moviescope.util.enums.MediaTypeEnum
 import com.example.moviescope.util.safeNavigate
+import com.example.moviescope.util.showMotionToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import www.sanju.motiontoast.MotionToastStyle
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
@@ -78,14 +81,39 @@ class SearchFragment : Fragment() {
                 viewModel.getDiscoverTvSeries()
         }
     }
+
     private fun collectData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 with(binding) {
                     with(viewModel) {
-                        searchRV.adapter = searchAdapter
                         discoverData.collectLatest { pagingData ->
+                            searchRV.adapter = searchAdapter
                             searchAdapter.submitData(lifecycle, pagingData)
+                            searchAdapter.loadStateFlow.collectLatest { loadState ->
+                                when (loadState.refresh) {
+                                    is LoadState.Loading -> {
+                                        searchRV.visibility = View.GONE
+                                        searchContainerShimmer.visibility = View.VISIBLE
+                                        searchContainerShimmer.startShimmer()
+                                    }
+
+                                    is LoadState.NotLoading -> {
+                                        searchRV.visibility = View.VISIBLE
+                                        searchContainerShimmer.stopShimmer()
+                                        searchContainerShimmer.visibility = View.GONE
+                                    }
+
+                                    is LoadState.Error -> {
+                                        requireActivity().showMotionToast(
+                                            title = "ERROR",
+                                            description = (loadState.refresh as LoadState.Error).error.localizedMessage
+                                                ?: "Error",
+                                            motionStyle = MotionToastStyle.ERROR
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                 }
