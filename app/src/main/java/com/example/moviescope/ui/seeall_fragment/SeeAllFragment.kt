@@ -27,163 +27,92 @@ class SeeAllFragment : Fragment() {
     private lateinit var binding: FragmentSeeAllBinding
     private val viewModel: SeeAllViewModel by viewModels()
     private val args: SeeAllFragmentArgs by navArgs()
-    private val adapter: SeeAllAdapter by lazy { SeeAllAdapter(::onClick) }
-
+    private val seeAllAdapter: SeeAllAdapter by lazy { SeeAllAdapter(::onClick) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSeeAllBinding.inflate(inflater, container, false)
         initUI()
+        initFetchData()
         initCollect()
         return binding.root
     }
-
     private fun initUI() {
         binding.backButton.setOnClickListener {
             findNavController().popBackStack()
         }
     }
+    private fun initFetchData() {
+        with(binding) {
+            with(viewModel) {
+                when (args.mediaType) {
+                    MediaTypeEnum.TOP_RATED_MOVIES -> {
+                        pageTitle.text = resources.getString(R.string.most_pop_movies)
+                        seeAllTopRatedMovies()
+                    }
 
+                    MediaTypeEnum.NOW_PLAYING_MOVIES -> {
+                        pageTitle.text = resources.getString(R.string.top_rated_250)
+                        seeAllNowPlayingMovies()
+                    }
+
+                    MediaTypeEnum.POPULAR_TV_SERIES -> {
+                        pageTitle.text = resources.getString(R.string.most_pop_series)
+                        seeAllPopularTvSeries()
+                    }
+
+                    MediaTypeEnum.TOP_RATED_TV_SERIES -> {
+                        pageTitle.text = resources.getString(R.string.top_boxoffice)
+                        seeAllTopRatedTvSeries()
+                    }
+
+                    else -> {
+                        requireActivity().showMotionToast(
+                            title = "ERROR",
+                            description = "Error",
+                            motionStyle = MotionToastStyle.ERROR
+                        )
+                    }
+                }
+            }
+        }
+    }
     private fun initCollect() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                with(viewModel) {
-                    with(binding) {
-                        seeAllRV.adapter = adapter
-                        when (args.mediaType) {
-                            MediaTypeEnum.TOP_RATED_MOVIES -> {
-                                pageTitle.text = resources.getString(R.string.most_pop_movies)
-                                seeAllTopRatedMovies.collectLatest { pagingData ->
-                                    adapter.submitData(lifecycle, pagingData)
-                                    adapter.loadStateFlow.collectLatest { loadState ->
-                                        when (loadState.refresh) {
-                                            is LoadState.Loading -> {
-                                                seeAllContainerShimmer.visibility = View.VISIBLE
-                                                seeAllContainerShimmer.startShimmer()
-                                                seeAllRV.visibility = View.GONE
-                                            }
+                with(binding) {
+                    with(viewModel) {
+                        fetchData.collectLatest { pagingData ->
+                            seeAllRV.adapter = seeAllAdapter
+                            seeAllAdapter.submitData(lifecycle, pagingData)
+                            seeAllAdapter.loadStateFlow.collectLatest { loadState ->
+                                when (loadState.refresh) {
+                                    is LoadState.Loading -> {
+                                        seeAllContainerShimmer.visibility = View.VISIBLE
+                                        seeAllContainerShimmer.startShimmer()
+                                        seeAllRV.visibility = View.GONE
+                                    }
 
-                                            is LoadState.NotLoading -> {
-                                                seeAllContainerShimmer.stopShimmer()
-                                                seeAllContainerShimmer.visibility = View.GONE
-                                                seeAllRV.visibility = View.VISIBLE
-                                            }
+                                    is LoadState.NotLoading -> {
+                                        seeAllContainerShimmer.stopShimmer()
+                                        seeAllContainerShimmer.visibility = View.GONE
+                                        seeAllRV.visibility = View.VISIBLE
+                                    }
 
-                                            is LoadState.Error -> {
-                                                requireActivity().showMotionToast(
-                                                    title = "ERROR",
-                                                    description = (loadState.refresh as LoadState.Error).error.localizedMessage
-                                                        ?: "Error",
-                                                    motionStyle = MotionToastStyle.ERROR
-                                                )
-                                            }
-                                        }
+                                    is LoadState.Error -> {
+                                        requireActivity().showMotionToast(
+                                            title = "ERROR",
+                                            description = (loadState.refresh as LoadState.Error).error.localizedMessage
+                                                ?: "Error",
+                                            motionStyle = MotionToastStyle.ERROR
+                                        )
                                     }
                                 }
-                            }
-
-                            MediaTypeEnum.NOW_PLAYING_MOVIES -> {
-                                pageTitle.text = resources.getString(R.string.top_rated_250)
-                                seeAllNowPlayingMovies.collectLatest { pagingData ->
-                                    adapter.submitData(lifecycle, pagingData)
-                                    adapter.loadStateFlow.collectLatest { loadState ->
-                                        when (loadState.refresh) {
-                                            is LoadState.Loading -> {
-                                                seeAllContainerShimmer.visibility = View.VISIBLE
-                                                seeAllContainerShimmer.startShimmer()
-                                                seeAllRV.visibility = View.GONE
-                                            }
-
-                                            is LoadState.NotLoading -> {
-                                                seeAllContainerShimmer.stopShimmer()
-                                                seeAllContainerShimmer.visibility = View.GONE
-                                                seeAllRV.visibility = View.VISIBLE
-                                            }
-
-                                            is LoadState.Error -> {
-                                                requireActivity().showMotionToast(
-                                                    title = "ERROR",
-                                                    description = (loadState.refresh as LoadState.Error).error.localizedMessage
-                                                        ?: "Error",
-                                                    motionStyle = MotionToastStyle.ERROR
-                                                )
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            MediaTypeEnum.POPULAR_TV_SERIES -> {
-                                pageTitle.text = resources.getString(R.string.most_pop_series)
-                                seeAllPopularTvSeries.collectLatest { pagingData ->
-                                    adapter.submitData(lifecycle, pagingData)
-                                    adapter.loadStateFlow.collectLatest { loadState ->
-                                        when (loadState.refresh) {
-                                            is LoadState.Loading -> {
-                                                seeAllContainerShimmer.visibility = View.VISIBLE
-                                                seeAllContainerShimmer.startShimmer()
-                                                seeAllRV.visibility = View.GONE
-                                            }
-
-                                            is LoadState.NotLoading -> {
-                                                seeAllContainerShimmer.stopShimmer()
-                                                seeAllContainerShimmer.visibility = View.GONE
-                                                seeAllRV.visibility = View.VISIBLE
-                                            }
-
-                                            is LoadState.Error -> {
-                                                requireActivity().showMotionToast(
-                                                    title = "ERROR",
-                                                    description = (loadState.refresh as LoadState.Error).error.localizedMessage
-                                                        ?: "Error",
-                                                    motionStyle = MotionToastStyle.ERROR
-                                                )
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            MediaTypeEnum.TOP_RATED_TV_SERIES -> {
-                                pageTitle.text = resources.getString(R.string.top_boxoffice)
-                                seeAllTopRatedTvSeries.collectLatest { pagingData ->
-                                    adapter.submitData(lifecycle, pagingData)
-                                    adapter.loadStateFlow.collectLatest { loadState ->
-                                        when (loadState.refresh) {
-                                            is LoadState.Loading -> {
-                                                seeAllContainerShimmer.visibility = View.VISIBLE
-                                                seeAllContainerShimmer.startShimmer()
-                                                seeAllRV.visibility = View.GONE
-                                            }
-
-                                            is LoadState.NotLoading -> {
-                                                seeAllContainerShimmer.stopShimmer()
-                                                seeAllContainerShimmer.visibility = View.GONE
-                                                seeAllRV.visibility = View.VISIBLE
-                                            }
-
-                                            is LoadState.Error -> {
-                                                requireActivity().showMotionToast(
-                                                    title = "ERROR",
-                                                    description = (loadState.refresh as LoadState.Error).error.localizedMessage
-                                                        ?: "Error",
-                                                    motionStyle = MotionToastStyle.ERROR
-                                                )
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            else -> {
-                                requireActivity().showMotionToast(
-                                    title = "ERROR",
-                                    description = "Error",
-                                    motionStyle = MotionToastStyle.ERROR
-                                )
                             }
                         }
+
+
                     }
                 }
             }
