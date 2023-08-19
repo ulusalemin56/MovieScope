@@ -25,13 +25,11 @@ The MovieScope App is an application where you can track trends of films and TV 
   - [Glide](https://github.com/bumptech/glide)
 
 # Output
-| Home Screen | Detail Screen | Favorites Screen | 
-| --- | --- | --- |
-| <img src="screenshots/homescreen.jpg" width=150/>  <img src="screenshots/homescreen2.jpg" width=150/> | <img src="screenshots/detailscreen.jpg" width=150/> | <img src="screenshots/favoritesscreen.jpg" width=150/> <img src="screenshots/favoritesscreen2.jpg" width=150/> |
+| Home Screen | Home Screen | Favorites Screen | Favorites Screen | 
+| --- | --- | --- | --- |
+| <img src="screenshots/homescreen.jpg" width=150/> | <img src="screenshots/homescreen2.jpg" width=150/> |  <img src="screenshots/favoritesscreen.jpg" width=150/> | <img src="screenshots/favoritesscreen2.jpg" width=150/> |
 
-| Search Screen |
-| --- |
-| <img src="screenshots/searchscreen.jpg" width=150/> |
-
-https://github.com/ulusalemin56/MovieScope/assets/123735600/0bb30694-e168-4882-89f7-0b5ea434cefa
+| Search Screen | SeeAll Screen | SeeAll Screen | Detail Screen | 
+| --- | --- | --- | --- |
+| <img src="screenshots/searchscreen.jpg" width=150/> | <img src="screenshots/seeallscreen.jpg" width=150/> | <img src="screenshots/seeallscreen2.jpg" width=150/> | <img src="screenshots/detailscreen.jpg" width=150/> |
 
