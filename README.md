@@ -14,7 +14,10 @@ The MovieScope App is an application where you can track trends of films and TV 
 + [Coroutines](https://developer.android.com/kotlin/coroutines)
 + [StateFlow, Flow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#livedata)
 + [Repositories](https://developer.android.com/topic/architecture#data-layer)
++ [Paging 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
 + [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics)
++ [Timber](https://github.com/JakeWharton/timber)
++ [Facebook Shimmer](https://github.com/facebookarchive/shimmer-android)
 + ***Third party libraries***
   - [Retrofit](https://square.github.io/retrofit/)
   - [OkHttp](https://square.github.io/okhttp/recipes/)
@@ -22,9 +25,13 @@ The MovieScope App is an application where you can track trends of films and TV 
   - [Glide](https://github.com/bumptech/glide)
 
 # Output
-| Home Screen | Home Screen | Detail Screen | Favorites Screen |
-| --- | --- | --- | --- |
-| <img src="screenshots/homescreen.jpg" width=150/> | <img src="screenshots/homescreen2.jpg" width=150/> | <img src="screenshots/detailscreen.jpg" width=150/> | <img src="screenshots/favoritesscreen.jpg" width=150/> |
+| Home Screen | Detail Screen | Favorites Screen | 
+| --- | --- | --- |
+| <img src="screenshots/homescreen.jpg" width=150/>  <img src="screenshots/homescreen2.jpg" width=150/> | <img src="screenshots/detailscreen.jpg" width=150/> | <img src="screenshots/favoritesscreen.jpg" width=150/> <img src="screenshots/favoritesscreen2.jpg" width=150/> |
+
+| Search Screen |
+| --- |
+| <img src="screenshots/searchscreen.jpg" width=150/> |
 
 https://github.com/ulusalemin56/MovieScope/assets/123735600/0bb30694-e168-4882-89f7-0b5ea434cefa
 
