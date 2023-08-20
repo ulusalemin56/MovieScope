@@ -33,3 +33,5 @@ The MovieScope App is an application where you can track trends of films and TV 
 | --- | --- | --- | --- |
 | <img src="screenshots/searchscreen.jpg" width=150/> | <img src="screenshots/seeallscreen.jpg" width=150/> | <img src="screenshots/seeallscreen2.jpg" width=150/> | <img src="screenshots/detailscreen.jpg" width=150/> |
 
+https://github.com/ulusalemin56/MovieScope/assets/123735600/07a227ff-5f10-4a99-8755-4a4cd68eb9eb
+
