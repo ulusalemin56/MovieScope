@@ -77,6 +77,9 @@ class HomeFragment : Fragment() {
                             topRatedMovies.collectLatest {
                                 when (it) {
                                     is Resource.Loading -> {
+                                        topRatedMoviesTextView.visibility = View.GONE
+                                        seeAllTopRatedMovies.visibility = View.GONE
+                                        topRatedMoviesRV.visibility = View.GONE
                                         topRatedMoviesContainerShimmer.visibility = View.VISIBLE
                                         topRatedMoviesContainerShimmer.startShimmer()
                                     }
@@ -105,7 +108,10 @@ class HomeFragment : Fragment() {
                             nowPlayingMovies.collectLatest {
                                 when (it) {
                                     is Resource.Loading -> {
-                                        nowPlayingMoviesContainerShimmer.visibility = View.VISIBLE
+                                        nowPlayingMoviesTextView.visibility = View.GONE
+                                        seeAllNowPlayingMovies.visibility = View.GONE
+                                        nowPlayingMoviesRecyclerView.visibility = View.GONE
+                                        nowPlayingMoviesContainerShimmer.visibility = View.GONE
                                         nowPlayingMoviesContainerShimmer.startShimmer()
                                     }
 
@@ -133,6 +139,9 @@ class HomeFragment : Fragment() {
                             popularTvSeries.collectLatest {
                                 when (it) {
                                     is Resource.Loading -> {
+                                        popularTvSeriesTextView.visibility = View.GONE
+                                        seeAllPopularTvSeries.visibility = View.GONE
+                                        popularTvSeriesRecyclerView.visibility = View.GONE
                                         popularTvSeriesContainerShimmer.visibility = View.VISIBLE
                                         popularTvSeriesContainerShimmer.startShimmer()
                                     }
@@ -162,6 +171,9 @@ class HomeFragment : Fragment() {
                             topRatedTvSeries.collect {
                                 when (it) {
                                     is Resource.Loading -> {
+                                        topRatedTvSeriesTextView.visibility = View.GONE
+                                        seeAllTopRatedTvSeries.visibility = View.GONE
+                                        topRatedTvSeriesRecyclerView.visibility = View.GONE
                                         topRatedTvSeriesContainerShimmer.visibility = View.VISIBLE
                                         topRatedTvSeriesContainerShimmer.startShimmer()
                                     }
